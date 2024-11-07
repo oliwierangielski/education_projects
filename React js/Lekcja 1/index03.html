@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="charset" content="Oliwier Angielski 4IB">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <div id="react-app"></div>
+    <script type="text/babel">
+        class Start extends React.Component {
+        render() {
+            return (
+                <>
+                <h1>03: JSX - style inline</h1>
+                <table style={{border: "6px solid blue", borderSpacing: "10px"}}>
+                    <tbody>
+                        <tr>
+                            <td style={{width: "100px", height: "100px", backgroundColor: "#ee82ef", fontSize: "18px", border: "6px solid blue", color: "white", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center"}}>
+                                <div>Style</div><div>inline</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style={{width: "100px", height: "100px", backgroundColor: "#ee82ef", fontSize: "18px", border: "6px solid blue", color: "white", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center"}}>
+                                <div>Style</div><div>inline</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style={{width: "100px", height: "100px", backgroundColor: "#ee82ef", fontSize: "18px", border: "6px solid blue", color: "white", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center"}}>
+                                <div>Style</div><div>inline</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </>
+            );
+        }
+}
+
+ReactDOM.render(
+    <Start />,
+    document.getElementById('react-app')
+);
+        </script>        
+</body>
+</html>

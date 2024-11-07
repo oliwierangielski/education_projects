@@ -1,0 +1,34 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+table{
+    border: 4px solid gray;
+    text-align: center;
+}
+
+td, th{
+    border: 1px solid gray;
+    width: 95px;
+    height: 35px;
+}
+
+th{
+    color: blue;
+}
+
+td[colspan="2"]{
+    color: red;
+}
+
+h3{
+    color: blue;
+}
+
+button{
+    border: 2px solid #000;
+    border-radius: 4px;
+    padding: 5px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}

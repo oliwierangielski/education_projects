@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <title>Oliwier Angielski 4IB</title>
+    <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+        h1 {
+            color: blue;
+            width: 700px;
+        }
+        .gen{
+            background-color: blue;
+            color: white;
+            width: 300px;
+            height: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            font-size: 25px;
+            padding: 5px;
+        }
+    </style>
+    <script src="libs/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+            
+            $("#btnCreate").on("click", function(){
+                let value = $("#select").val();
+                for(let i = 1; i<= value; i++){
+                    console.log(i);
+                    let bt = $("<button class=\"gen\">" + i + "</button>")
+                    $("#mainDiv").append(bt);
+                    bt.on("click", function(){
+                        let confirmDel = confirm("Czy usunąć przycisk?");
+                        console.log(confirmDel)
+                        if(confirmDel){
+                            bt.remove();
+                        }
+                    })
+                }
+            });
+
+            $("#btnDelete").on("click", function(){
+                $("#mainDiv").empty();
+            });
+
+            $("#select").on("change", function(){
+                $("#mainDiv").empty();
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>T: Pętla for, dynamicznie tworzenie i usuwanie html-a, cz1</h1>
+    <button id="btnCreate">UTWÓRZ MENU</button>
+    <button id="btnDelete">USUŃ MENU</button>
+    <select id="select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+    <div id="mainDiv"></div>
+</body>
+</html>

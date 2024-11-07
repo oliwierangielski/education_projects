@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body style="margin: 0px;">
+    <div class="header">
+        <h1>ćwiczenie 07 - prostokąty</h1>
+    </div>
+    <div class="allContainer">
+        <div id="firstContainer" class="drawingContainer"></div>
+        <div id="secondContainer" class="drawingContainer"></div>
+    </div>
+    <script>
+        let drawing
+        let transform = {}
+        let width
+        let height
+        document.getElementById("firstContainer").onmousedown = function (event) {
+            drawing = document.createElement("div")
+            drawing.classList.add("drawing")
+            drawing.style.left = event.x + "px"
+            drawing.style.top = event.y + "px"
+            this.appendChild(drawing)
+            this.onmousemove = (e) => {
+                width = e.clientX - event.x
+                height = e.clientY - event.y
+                drawing.style.width = Math.abs(width) + "px"
+                drawing.style.height = Math.abs(height) + "px"
+                if(width < 0){
+                    transform.x = "translateX(-100%)"
+                } else {
+                    transform.x = ""
+                }
+
+                if(height < 0){
+                    transform.y = "translateY(-100%)"
+                } else {
+                    transform.y = ""
+                }
+                drawing.style.transform = transform.x + transform.y
+            }
+        }
+
+        document.getElementById("firstContainer").onmouseup = function () {
+            this.onmousemove = null
+            if(transform.x != ""){
+                drawing.style.left = parseInt(drawing.style.left) - parseInt(drawing.style.width) + "px"
+                drawing.style.transform = ""
+            } 
+            if(transform.y != ""){
+                drawing.style.top = parseInt(drawing.style.top) - parseInt(drawing.style.height) + "px"
+                drawing.style.transform = ""
+            }
+            fetchDrawing()
+        }
+
+        function fetchDrawing() {
+            const data = JSON.stringify({
+                left: drawing.style.left,
+                top: drawing.style.top,
+                width: drawing.style.width,
+                height: drawing.style.height
+            })
+            const options = {
+                method: "POST",
+                body: data
+            };
+
+            fetch("/prostokaty", options)
+                .then(response => response.json()) // konwersja na json
+                .then(data => {
+                    let rectangleInfo = JSON.parse(data)
+                    let rectangle = document.createElement("div")
+                    rectangle.classList.add("drawing")
+                    rectangle.style.left = rectangleInfo.left
+                    rectangle.style.top = rectangleInfo.top
+                    rectangle.style.width = rectangleInfo.width
+                    rectangle.style.height = rectangleInfo.height
+                    document.getElementById("secondContainer").appendChild(rectangle)
+                }) // dane odpowiedzi z serwera
+                .catch(error => console.log(error));
+        }
+    </script>
+</body>
+
+</html>

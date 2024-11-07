@@ -1,0 +1,14 @@
+<div class="styleBtnHolder">
+    <button class="styleBtn styleBtnLeft" onmousedown="changeFontSize(-1)" onmouseup="finishChangingFontSize()">font -</button>
+    <button class="styleBtn styleBtnCenter" onclick="invertColors()">kolory</button>
+    <button class="styleBtn styleBtnRight" onmousedown="changeFontSize(1)" onmouseup="finishChangingFontSize()">font +</button>
+</div>
+<div>
+    <button class="button assideBtn" onclick="saveSettings()">zapisz ustawienia</button>
+</div>
+<div>
+    <button class="button assideBtn" onclick="createDialog('nowa nazwa pliku ', '/rename', 'right bottom', '{{name}}', '/showfile')">zmiana nazwy</button>
+</div>
+<div>
+    <button class="button assideBtn filePreviewBtn" onclick="location.href='/previewFile?name={{name}}'" type="button">podgląd pliku</button>
+</div>

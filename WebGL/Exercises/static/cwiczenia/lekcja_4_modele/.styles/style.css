@@ -1,0 +1,49 @@
+body{
+    margin: 0;
+    overflow: hidden;
+}
+
+.headContainer {
+    padding: 10px;
+    position: absolute;
+}
+
+h1{
+    margin: 0;
+    color: blue;
+    text-decoration: underline;
+}
+
+.animationsContainer{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 248px;
+    margin-top: 20px;
+    margin-right: 5px;
+}
+
+.button{
+    width: 120px;
+    height: 32px;
+    margin: 2px;
+    border-radius: 35px;
+    border: none;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    display: inline-block;
+    font-size: 20px;
+}
+
+.amountBtn:focus{
+    background-color: rgba(44, 252, 25, 0.733);
+    color: black;
+}
+
+.active{
+    background-color: rgba(230, 4, 34, 0.63);
+}
+
+.button:hover{
+    opacity: 0.8;
+}

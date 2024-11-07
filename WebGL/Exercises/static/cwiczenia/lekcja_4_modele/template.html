@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="stylesheet" href=".styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <script src=".libs/three145.js"></script>
+</head>
+<body>
+    <div class="headContainer">
+        <h1>03 - load md2 model (.MD2)</h1>
+        <div class="controlMenu">
+
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+        window.addEventListener("load", function () {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(
+                45,    // FOV
+                window.innerWidth / window.innerHeight,    // Aspect Ratio
+                0.1,    // min render distance
+                10000    // max render distance
+            );
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setClearColor(0xffffff); 
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById("root").appendChild(renderer.domElement);
+            camera.position.set(100, 100, 100)
+            camera.lookAt(scene.position);
+            function render() {
+                requestAnimationFrame(render);
+                renderer.render(scene, camera); // repeating rendering
+            }
+            render();
+        })
+    </script>
+</body>
+</html>

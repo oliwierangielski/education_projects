@@ -1,0 +1,27 @@
+<h1 class="style2">{{ subject }}</h1>
+
+    {{#if noOptionTitle}}
+        <h3 class="style1">nie wybrano opcji checkbox</h3>
+    {{/if}}
+    {{#if selectedInfo}}
+        {{#each selectedInfo}}
+            <h3 class="style1">{{title}}{{author}}{{lang}}</h3>
+        {{/each}}
+    {{/if}}
+
+
+{{#if fields}}
+    <form action="/handle06" method="get">
+        <div>
+                {{#each fields}}  
+                    <div class="inputHolder">
+                        <input type="checkbox" name="chekbox" value="{{name}}" id="{{name}}">
+                        <div style="color: blue;"><label for="{{name}}">{{name}}</label></div>
+                    </div>
+                {{/each}}
+        </div>
+        <div>
+            <input type="submit" value="wyślij">
+        </div>
+    </form>
+{{/if}}

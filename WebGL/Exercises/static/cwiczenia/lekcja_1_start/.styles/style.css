@@ -1,0 +1,80 @@
+body{
+    margin: 0;
+    overflow: hidden;
+}
+
+.headContainer {
+    padding: 10px;
+    position: absolute;
+}
+
+h1{
+    margin: 0;
+    color: blue;
+    text-decoration: underline;
+}
+
+
+.axisInfo{
+    margin-top: 30px;
+}
+
+.shapeInfo{
+    margin-top: 10px;
+    border: 2px solid red;
+    padding: 15px;
+    border-radius: 15px;
+    color: red;
+    font-size: 20px;
+    max-width: fit-content;
+    
+}
+
+.rangeBorder{
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 172px;
+    display: inline-block;
+}
+
+.range{
+    width: 170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    color: blue;
+    background-color: rgb(231, 228, 228);
+    border: 2px solid blue;
+    padding: 9px;
+    width: 80px;
+    border-radius: 9px;
+    font-weight: bold;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+input[type=text]{
+    border: 2px solid red;
+    background-color: rgba(0,0,0,0);
+    color: red;
+    height: 30px;
+}
+
+label{
+    color: red;
+    font-size: 24px;
+    margin-left: 15px;
+}
+
+.deleteBtn {
+    background-color: rgb(228, 96, 114);
+    color: white;
+    border: 2px solid rgb(138, 15, 15);
+}
+
+.controlMenu{
+    margin-top: 30px;
+    margin-left: 10px;
+}

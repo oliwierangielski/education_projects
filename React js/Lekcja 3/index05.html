@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 07: React state - timer simple</h1>
+                    <TimerList />
+                </>
+            );
+        }
+    }
+
+    class TimerList extends React.Component {
+        render() {
+            return (
+                <div className={"timerList"}>
+                    <Timer />
+                    <Timer />
+                    <Timer />
+                </div>
+            )
+        }
+    }
+
+    class Timer extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                licznik: 0,
+                isCounting: false
+            }
+        }
+        setTimer = () => {
+            if (this.state.licznik == 0) {
+                this.setState({
+                    isCounting: false
+                })
+                clearInterval(this.intervalId);
+            } else {
+                this.setState({
+                    licznik: this.state.licznik - 1
+                })
+            }
+        }
+        onRangeChange = (event) => {
+            this.setState({
+                licznik: parseInt(event.target.value)
+            })
+        }
+        onButtonClick = () => {
+            if (this.state.licznik != 0) {
+                if (!this.state.isCounting) {
+                    this.setState({
+                        isCounting: true
+                    })
+                    this.intervalId = setInterval(this.setTimer, 1000);
+                } else {
+                    this.setState({
+                        isCounting: false
+                    })
+                    clearInterval(this.intervalId)
+                }
+            }
+        }
+        displayTime = () => {
+            let t = this.state.licznik
+            let hours = Math.floor(t / 3600).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
+            let minutes = Math.floor(t / 60 % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
+            let seconds = Math.floor(t % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
+            return hours + ":" + minutes + ":" + seconds
+        }
+        render() {
+            return (
+                <div className={"timer"}>
+                    <div className={"timerDisplay"}>{this.displayTime()}</div>
+                    <div><input type="range" min="0" max="10800" step="300" value={this.state.licznik} onChange={this.onRangeChange} /></div>
+                    <div><button className={"timerBtn"} onClick={this.onButtonClick}>{(!this.state.isCounting) ? "start" : "stop"}</button></div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

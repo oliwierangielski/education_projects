@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 01: React forms - simple</h1>
+                    <MyForm />
+                </>
+            );
+        }
+    }
+    class MyForm extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                data: '',
+                status: 'niewysłane'
+            };
+        }
+
+
+
+        handleChange = (event) => {
+            this.setState({ 
+                data: event.target.value,
+                status: "niewysłane"
+            });
+        }
+
+
+
+        handleSubmit = (event) => {
+            this.setState({
+                data: "",
+                status: "wysłane"
+            })
+            //blokada przed wysłaniem formularza
+            event.preventDefault();
+        }
+
+        render() {
+            return (
+                <div className={"textForm"}>
+                    <div className={"textFormTitle"}>formularz</div>
+                    <form onSubmit={this.handleSubmit} >
+                        <input type="text" value={this.state.data} onChange={this.handleChange} className={"textInput"}/>
+                        <input type="submit" value="send" className={"button"}/>
+                    </form>
+                    <div className={"textFormInfo"}><span className="textFormInfoLabel">status:</span> <i>{this.state.status}</i></div>
+                    <div className={"textFormInfo"}><span className="textFormInfoLabel">data:</span> <i>{this.state.data}</i></div>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

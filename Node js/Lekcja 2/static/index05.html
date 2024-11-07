@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <h1>ćwiczenie 05 - fetch - JSON, no form</h1>
+    <div>
+        <select id="imie">
+            <option value="Jan">Jan</option>
+            <option value="Piotr">Piotr</option>
+            <option value="Anna">Anna</option>
+            <option value="Halina">Halina</option>
+        </select>
+        <select id="nazwisko">
+            <option value="Nowak">Nowak</option>
+            <option value="Kowalski">Kowalski</option>
+        </select>
+        <div><input type="submit" value="klik" id="submitBtn" class="clickBtn" style="background-color: #f49bf2;"></div>
+    </div>
+    <script>
+        document.getElementById("submitBtn").onclick = () => {
+            const data = JSON.stringify({
+                message: "logowanie klienta",
+                imie: document.getElementById("imie").value,
+                nazwisko: document.getElementById("nazwisko").value
+            })
+            const options = {
+                method: "POST",
+                body: data
+            };
+            fetch("/nazwiska", options)
+                .then(response => response.json())
+                .then(data => alert(JSON.stringify(data, null, 5)))
+                .catch(error => console.log(error));
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <h3 style="color: blue; text-decoration:underline">lekcje WebGL</h3>
+    <!-- <ul style="list-style-type: none;"></ul> -->
+    <script>
+        const headers = { "Content-Type": "application/json" }
+    fetch("/cwiczenia", { method: "get", headers })
+        .then(response => response.json())
+        .then(
+            data =>{
+                console.table(data)
+                for(key in data){
+                    let ul = document.createElement("ul")
+                    ul.style.float = "left"
+                    ul.style.listStyleType = "none"
+                    ul.innerHTML = "<span style=\"color:red;\">"+key+"</span>"
+                    for(i in data[key]){
+                        // console.log(data[key][i][0])
+                        if(data[key][i][0] != "."){
+                            let li = document.createElement('li')
+                            let a = document.createElement("a")
+                            a.innerHTML = "<a href=\"" + key + "/" + data[key][i] + "\">" + data[key][i] + "</a>" 
+                            li.appendChild(a)
+                            ul.appendChild(li)
+                        }  
+                    }
+                    document.body.appendChild(ul)
+                }
+
+
+                 
+            }
+        )
+
+    
+    </script>
+</body>
+</html>

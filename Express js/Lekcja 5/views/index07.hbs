@@ -1,0 +1,29 @@
+<h1 class="style2">{{ subject }}</h1>
+<h3 class="style3">wyświetlenie całej tablicy jedno lub dwu-wymiarowej:</h3>
+<div class="style1">
+    <h3 class="descriptionInside">{{langs}}</h3>
+    <h3 class="descriptionInside">{{digits}}</h3>
+</div>
+<h3 class="style3">pobranie elementu z tablicy 1 lub 2-wymiarowej:</h3>
+<div class="style1">
+    <h3 class="descriptionInside">{{langs.[0]}}</h3>
+    <h3 class="descriptionInside">{{digits.[0].[1]}}</h3>
+</div>
+<h3 class="style3">iteracja przez tablicę:</h3>
+<div class="style1">
+    {{#each countries}}
+        <h3 class="descriptionInside">{{@index}}&nbsp;&nbsp;-&nbsp;&nbsp;{{this}}</h3>
+    {{/each}}
+</div>
+<h3 class="style3">iteracja przez obiekt:</h3>
+<div class="style1">
+    {{#each user}}
+        <h3 class="descriptionInside">{{@index}}&nbsp;&nbsp;-&nbsp;&nbsp;{{@key}}-&nbsp;&nbsp;{{this}}</h3>
+    {{/each}}
+</div>
+<h3 class="style3">iteracja przez tablicę obiektów:</h3>
+<div class="style1">
+    {{#each books}}
+        <h3 class="descriptionInside">{{@index}}&nbsp;&nbsp;-&nbsp;&nbsp;{{title}}</h3>
+    {{/each}}
+</div>

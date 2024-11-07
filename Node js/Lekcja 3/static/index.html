@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <title>Oliwier Angielski 4IB</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+
+        h1 {
+            color: red;
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #eae9ee;
+            width: 250px;
+            font-size: 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .blueBtn {
+            border: 2px solid blue;
+            color: blue;
+        }
+
+        .redBtn {
+            border: 2px solid red;
+            color: red;
+        }
+
+        #chart{
+            background-color: #eae9ee;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>T: zużycie pamięci aplikacji na serwerze</h1>
+    <div>
+        <button class="blueBtn" onclick="buttonClick('startRecord')">start zapisu danych na serwerze</button>
+        <button class="redBtn" onclick="fetchAndDrawChart('startRead')">start odczytu danych na serwerze</button>
+        <button class="blueBtn" onclick="buttonClick('stopRecord')">stop odczytu danych z serwera</button>
+    </div>
+    <div>
+        <canvas id="chart" width="600px" height="400px"></canvas>
+    </div>
+    <script>
+        buttonClick = (operation) => {
+            const data = JSON.stringify({
+                operation: operation
+            })
+            const options = {
+                method: "POST",
+                body: data
+            };
+            fetch("/memoryUsage", options)
+                .then(response => response.json()) // konwersja na json
+                .then(data => alert(data.info)) // dane odpowiedzi z serwera
+                .catch(error => console.log(error));
+        }
+
+        fetchAndDrawChart = (operation) => {
+            const data = JSON.stringify({
+                operation: operation
+            })
+            const options = {
+                method: "POST",
+                body: data
+            };
+            let fetchData = (callback) => {
+                fetch("/memoryUsage", options)
+                    .then(response => response.json()) // konwersja na json
+                    .then(data => callback(data)) // dane odpowiedzi z serwera
+                    .catch(error => console.log(error));
+            }
+            fetchData((data) => alert(data.info))
+            setInterval(function () {
+                fetchData((data) => drawChart(data.data))
+            }, 1000)
+
+        }
+
+        drawChart = (data) => {
+            let canvas = document.getElementById("chart")
+            let ctx = canvas.getContext("2d")
+            const barWidth = 5
+            const barOffset = 10
+            let existingBars = []
+            let fontSize = 20
+            let textPadding = 10
+
+            // Po 1 słupku - dobry gdy będziemy co sekundę przesyłać po 1 danej
+            // for(let i = data.length-1; i >=  0; i--){
+            //     console.log(existingBars.length)
+            //     ctx.clearRect(0,0,canvas.width, canvas.height)
+            //     ctx.beginPath()
+            //     existingBars.forEach(element => {
+            //         element.x -= barOffset
+            //         ctx.fillRect(element.x, element.y, element.width, element.height)
+            //     })
+            //     let bar = {
+            //         x: canvas.width - barWidth, 
+            //         y: canvas.height, 
+            //         width: barWidth, 
+            //         height: -data[i].used/80000
+            //     }
+            //     ctx.fillRect(bar.x, bar.y, bar.width, bar.height)
+            //     existingBars.push(bar)
+            //     ctx.fillStyle = "#4767be"
+            //     ctx.stroke()
+            // }
+
+            ctx.clearRect(0,0,canvas.width, canvas.height)
+            for(let index = 19; index >=0; index--) {
+                let bar = {
+                    x: canvas.width - barWidth - barOffset*(index), 
+                    y: canvas.height, 
+                    width: barWidth, 
+                    height: -data[index].used/80000
+                }
+                ctx.beginPath()
+                ctx.fillStyle = "#4767be"
+                ctx.fillRect(bar.x, bar.y, bar.width, bar.height)
+                existingBars.push(bar)
+                ctx.stroke()
+                ctx.closePath()
+            }
+            let max = Math.max(...data.map(o => parseFloat(o.used)))
+            let maxMemUsageTitle = " max memory usage: " + parseFloat(max/8388608).toFixed(2) + " MB "
+            max /= 80000
+            ctx.fillStyle = "#FF0000"
+            ctx.strokeStyle ="#FF0000"
+            ctx.beginPath()
+            ctx.fillRect(0, canvas.height-max-fontSize - 2*textPadding, ctx.measureText(maxMemUsageTitle).width, fontSize + 2*textPadding)
+            ctx.fillStyle = "#FFFFFF"
+            ctx.font = fontSize + "px Arial";
+            ctx.fillText(maxMemUsageTitle, 0, canvas.height-max-textPadding); 
+            ctx.moveTo(0, canvas.height-max)
+            ctx.lineTo(canvas.width, canvas.height-max)
+            ctx.lineWidth = 3
+            ctx.stroke()
+            ctx.closePath()
+        }
+
+    </script>
+</body>
+
+</html>

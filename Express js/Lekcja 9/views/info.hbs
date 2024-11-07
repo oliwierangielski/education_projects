@@ -1,0 +1,16 @@
+{{#if image}}
+<ul>
+    <li><span class="li_header">id:</span> {{image.[id]}}</li>
+    <li><span class="li_header">name:</span> {{image.[name]}}</li>
+    <li><span class="li_header">path:</span> {{image.[path]}}</li>
+    <li><span class="li_header">size:</span> {{image.[size]}}</li>
+    <li><span class="li_header">type:</span> {{image.[type]}}</li>
+    <li><span class="li_header">savedate:</span> {{image.[lastModifiedDate]}}</li>
+</ul>
+{{else}}
+        {{#each this}}
+            {{#if name}}
+                <a href="/info?id={{@index}}" class="info_link">{{name}}</a>
+            {{/if}}
+        {{/each}}
+{{/if}}

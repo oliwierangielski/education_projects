@@ -1,0 +1,12 @@
+<div class="halfAsside">
+    <button class="button filterBtn" onclick="showFiltersPanel()">filters</button>
+</div>
+<div id="panel">
+    <div class="nameBar nameBarPurple">filters</div>
+    {{#each effects}}
+        <div class="filterTitle">{{filterName}}</div>
+        <div class="filterPreview" style="background-image:url('{{../name}}');filter:{{filterName}}(100%);" onclick="changeFilter('{{filterName}}')"></div>
+    {{/each}}
+    <div class="filterTitle">none</div>
+    <div class="filterPreview" style="background-image:url('{{name}}');filter:none;" onclick="clearFilter()"></div>
+</div>

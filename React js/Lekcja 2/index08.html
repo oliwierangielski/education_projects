@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 08: React state - stopers</h1>
+                    <TimerList />
+                </>
+            );
+        }
+    }
+
+    class TimerList extends React.Component {
+        render() {
+            return (
+                <div className={"timerList"}>
+                    <Timer />
+                    <Timer />
+                    <Timer />
+                </div>
+            )
+        }
+    }
+
+    class Timer extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                minutes: 0,
+                seconds: 0,
+                buttonState: "start"
+            }
+        }
+        setTimer = () => {
+            let deltaTime = new Date(Date.now() - this.clickTime)
+            this.setState({
+                minutes: deltaTime.getMinutes(),
+                seconds: deltaTime.getSeconds()
+            })
+        }
+        onButtonClick = () => {
+            if(this.state.buttonState == "start"){
+                this.setState({buttonState: "stop"})
+                this.clickTime = Date.now()
+                this.intervalId = setInterval(this.setTimer, 1000);
+            } else if(this.state.buttonState == "stop"){
+                this.setState({
+                    minutes: 0,
+                    seconds: 0,
+                    buttonState: "start"
+                 })
+                clearInterval(this.intervalId)
+            }
+            
+        }
+        render() {
+            return (
+                <div className={"timer"}>
+                    <div className={"timerDisplay"}>{this.state.minutes.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:{this.state.seconds.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}</div>
+                    <div><button className={"colorDivBtn"} onClick={this.onButtonClick}>{this.state.buttonState}</button></div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

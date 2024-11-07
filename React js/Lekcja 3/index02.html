@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 02: React forms - select</h1>
+                    <div className={"myFormList"}>
+                        <MyForm />
+                        <MyForm />
+                    </div>
+                </>
+            );
+        }
+    }
+    class MyForm extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                array: [
+                    { id: 0, name: "hamlet" },
+                    { id: 1, name: "krzyzacy" },
+                    { id: 2, name: "lalka" }
+                ],
+                array2: [
+                    { id: 0, name: "Kraków" },
+                    { id: 1, name: "Warszawa" },
+                    { id: 2, name: "Gdańsk" },
+                    { id: 3, name: "Toruń" }
+                ],
+                options: [],
+                send: []
+            }
+        }
+        onHandleSelect = (option, index) => {
+            let options = this.state.options
+            options[index-1] = option
+            this.setState({
+                options: options
+            })
+        }
+        onButtonClick = () => {
+            event.preventDefault();
+            let sendArray = this.state.send
+            for (let i in this.state.options) {
+                if(!this.state.send.includes(this.state.options[i]))
+                    sendArray.push(this.state.options[i])
+            }
+            this.setState({
+                    send: sendArray
+            })
+            alert(sendArray)
+        }
+        render() {
+            return (
+                <div className={"myForm"}>
+                    <div className={"myFormTitle"}>komponent MyForm</div>
+                    <form>
+                        <MySelect array={this.state.array} handleSelect={this.onHandleSelect} id={1} />
+                        <MySelect array={this.state.array2} handleSelect={this.onHandleSelect} id={2} />
+                        <input type="submit" value="send" className={"button"} onClick={this.onButtonClick} />
+                        <div className={"myFormSend"}>wysłane: {JSON.stringify(this.state.send, null, 3)}</div>
+                    </form>
+                </div>
+            )
+        }
+
+    }
+
+    class MySelect extends React.Component {
+
+        constructor() {
+            super()
+            this.state = {
+                select: ""
+            }
+        }
+        onSelectChange = (event) => {
+            let selVal = event.target.value
+            this.setState({
+                select: selVal
+            })
+            this.props.handleSelect(selVal, this.props.id)
+        }
+        render() {
+            return (
+                <div className={"mySelect"}>
+                    <div className={"mySelectTitle"}>komponent MySelect</div>
+                    <select className={"mySelectSelect"} onChange={this.onSelectChange}>
+                        {
+                            this.props.array.map((element) => {
+                                return (<option value={element.name} key={"option" + element.id}>{element.name}</option>)
+                            })
+                        }
+                    </select>
+                    <div className={"mySelectChoices"}>wybrane z select: {this.state.select}</div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

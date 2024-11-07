@@ -1,0 +1,18 @@
+<div class="form">
+  <div><label>Szerokość: </label><input type="number" [(ngModel)]="cols" (ngModelChange)="onInputChange()" [disabled]="disable" [min]="5"></div>
+  <div><label>Wysokość: </label><input type="number" [(ngModel)]="rows" (ngModelChange)="onInputChange()" [disabled]="disable" [min]="5"></div>
+  <div><label>Do ilu punktów: </label><input type="number" [(ngModel)]="points" (ngModelChange)="onInputChange()" [disabled]="disable" [min]="1"></div>
+</div>
+
+<div>
+  {{score["X"]}} | {{score["O"]}}
+</div>
+<div>
+  <table class="gameTable">
+      <tr *ngFor="let row of gameArray; let i = index">
+        <td *ngFor="let col of row; let y = index" class="gameCell" (click)="onCellClick($event, i, y)" [style.backgroundColor]="col.color">
+          {{col.char}}
+        </td>
+      </tr>
+  </table>
+</div>

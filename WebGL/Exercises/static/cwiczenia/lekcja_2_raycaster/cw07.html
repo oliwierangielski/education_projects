@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="stylesheet" href=".styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <script src=".libs/three145.js"></script>
+</head>
+
+<body>
+    <div class="headContainer">
+        <h1>07: raycaster</h1>
+    </div>
+    <div id="root"></div>
+    <script>
+        window.addEventListener("load", function () {
+            // scena 3D
+            const scene = new THREE.Scene();
+            const axes = new THREE.AxesHelper(1000)
+            scene.add(axes)
+
+            // Tworzenie kostki
+            let materials = [];
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/a.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/b.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/c.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/d.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/e.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/f.png') }));
+            const geometry = new THREE.BoxGeometry(100, 100, 100);
+            const cube = new THREE.Mesh(geometry, materials);
+            const cube2 = new THREE.Mesh(geometry, materials);
+            cube2.position.y = 100
+            const cube3 = new THREE.Mesh(geometry, materials);
+            cube3.position.y = -100
+            scene.add(cube, cube2, cube3)
+
+            //kamera perspektywiczna - przeczytaj dokładnie objaśnienia w komentarzach
+
+            const camera = new THREE.PerspectiveCamera(
+                45,    // kąt patrzenia kamery (FOV - field of view)
+                window.innerWidth / window.innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+                0.1,    // minimalna renderowana odległość
+                10000    // maksymalna renderowana odległość od kamery
+            );
+
+            // renderer wykorzystujący WebGL - działa stabilnie na wszystkich
+            // najnowszych przeglądarkach zarówno desktopowych jak mobilnych
+
+            const renderer = new THREE.WebGLRenderer();
+
+            // kolor tła sceny - uwaga na prefix 0x a nie #
+
+            renderer.setClearColor(0xffffff);
+
+            // ustal rozmiary renderowanego okna w px (szer, wys)
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // dodanie renderera do diva, który istnieje na scenie
+
+            document.getElementById("root").appendChild(renderer.domElement);
+
+            camera.position.set(450, 0, 450)
+
+            // nakierowanie kamery na punkt (0,0,0) w przestrzeni (zakładamy, że istnieje już scena)
+
+            camera.lookAt(scene.position);
+
+            // kluczowy element - animacja
+
+            let clickedElements  = {}
+            const raycaster = new THREE.Raycaster(); // obiekt Raycastera symulujący "rzucanie" promieni
+            const mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie, a potem przeliczenia na pozycje 3D
+            window.addEventListener("mousedown", (e) => {
+                mouseVector.x = (event.offsetX / window.innerWidth) * 2 - 1;
+                mouseVector.y = -(event.offsetY / window.innerHeight) * 2 + 1;
+                raycaster.setFromCamera(mouseVector, camera);
+                const intersects = raycaster.intersectObjects(scene.children);  
+                if (intersects.length > 0) {
+                    // zerowy w tablicy czyli najbliższy kamery obiekt to ten, którego potrzebujemy:
+                    if(clickedElements[intersects[0].object.uuid] == undefined){
+                        clickedElements[intersects[0].object.uuid] = intersects[0].object
+                    } else {
+                        delete clickedElements[intersects[0].object.uuid]
+                    }
+                
+                }
+            });
+
+
+
+            function render() {
+
+                //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
+                //np zmieniająca się wartość rotacji obiektu
+
+                //mesh.rotation.y += 0.01;
+
+                //wykonywanie funkcji bez końca, ok 60 fps jeśli pozwala na to wydajność maszyny
+
+                requestAnimationFrame(render);
+
+                // potwierdzenie w konsoli, że render się wykonuje
+
+                console.log("render leci")
+                for(const key in clickedElements){
+                    clickedElements[key].rotation.y += 0.01
+                }
+
+                //ciągłe renderowanie / wyświetlanie widoku sceny naszą kamerą
+
+                renderer.render(scene, camera);
+            }
+
+            // na koniec jednokrotne wykonanie powyższej funkcji
+
+            render();
+        })
+    </script>
+</body>
+
+</html>

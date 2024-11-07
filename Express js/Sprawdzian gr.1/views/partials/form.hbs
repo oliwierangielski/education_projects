@@ -1,0 +1,13 @@
+<form action="/handleForm" method="get">
+    <select name="chosenCategory">
+        <option>wybierz</option>
+        {{#each categories}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>
+    {{#each starsAmount}}
+        <label for="radio">{{this}}</label><input type="radio" name="radio" value="{{this}}">
+    {{/each}}
+    <input type="submit" value="FILTRUJ">
+    
+</form>

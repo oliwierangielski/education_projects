@@ -1,0 +1,36 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+h2{
+    color: blue;
+}
+
+button {
+    margin: 5px;
+    border: none;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.labyrinthContainer{
+    position: relative;
+    width: 410px;
+    height: 410px;
+    border: 1px solid gray;
+}
+
+.square {
+    width: 80px;
+    height: 80px;
+    border: 1px solid gray;
+    position: absolute;
+}
+
+.playerDiv{
+    border-radius: 50px;
+    width: 80px;
+    height: 80px;
+    margin: 1px;
+}

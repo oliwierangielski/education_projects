@@ -1,0 +1,26 @@
+<div>
+    <button class="button assideBtn" onclick="createDialog('nazwa nowego folderu w', '/createDirectory', 'right bottom', '{{root}}')">nowy folder</button>
+</div>
+{{#isNotHomeDir root}}
+    <div>
+        <button class="button assideBtn" onclick="createDialog('zmiana nazwy folderu ', '/rename', 'right bottom', '{{root}}', '/filemanager')">zmiana nazwy folderu</button>
+    </div>
+{{/isNotHomeDir}}
+<div>
+    <button class="button assideBtn" onclick="createDialog('nazwa nowego pliku w', '/createFile', 'left top', '{{root}}')">nowy plik tekstowy</button>
+</div>
+<form action="/handleUpload" method="POST" enctype="multipart/form-data" >
+    <div class="fileInputHolder">
+            <label class="fileLabel">
+                <div class="fileInputImgHolder">
+                    <img src="/gfx/upload.png" alt="Upload" class="fileInputImg">
+                </div>
+                <div class="fileInputDescription">
+                    wybierz plik
+                </div>
+                <input type="hidden" name="root" value="{{root}}">
+                <input type="file" multiple required name="file" class="fileInput">
+            </label>
+            <input type="submit" class="fileInputBtn" id="fileInputBtn" value="OK">
+    </div>
+</form>

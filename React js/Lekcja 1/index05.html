@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="charset" content="Oliwier Angielski 4IB">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <div id="react-app"></div>
+    <script type="text/babel">
+        let data = [
+            {id: 1, quantity: 1, name: "masło"},
+            {id: 2, quantity: 5, name: "chleb"},
+            {id: 3, quantity: 4, name: "ser"}
+        ]
+        class List1 extends React.Component {
+            render() {
+                return (
+                     <div className="list">
+                       <div className="listHeader">dane z tablicy</div>
+                       <ListItem key={data[0].id} quantity={data[0].quantity} name={data[0].name} />
+                       <ListItem key={data[1].id} quantity={data[1].quantity} name={data[1].name} />
+                       <ListItem key={data[2].id} quantity={data[2].quantity} name={data[2].name} />
+                     </div> 
+                );
+                }
+        }
+        class List2 extends React.Component {
+            render() {
+                let nodeComponents = []
+                data.forEach((item)=>{
+                    nodeComponents.push(<ListItem key={item.id} quantity={item.quantity} name={item.name} />)
+                })
+                return (
+                     <div className="list">
+                        <div className="listHeader">dane z tablicy</div>
+                        {nodeComponents}
+                     </div> 
+                );
+                }
+        }
+
+        class ListItem extends React.Component {
+            render() {
+                return (            
+                   <div className="listItem">{this.props.quantity} x {this.props.name}&nbsp;<span className="onListBtn">kup</span>&nbsp;<span className="onListBtn">usuń</span></div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <>
+            <h1>05: JSX - data simple</h1>
+            <List1 />
+            <List2 />
+            </>,
+            document.getElementById('react-app')
+        );
+    </script>        
+</body>
+</html>

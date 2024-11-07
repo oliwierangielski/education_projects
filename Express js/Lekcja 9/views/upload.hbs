@@ -1,0 +1,9 @@
+{{#if result}} {{!-- TODO: if statem if error (false)--}}
+<div class="alert-success">Udało się wysłać plik na serwer</div>
+{{/if}}
+<div class="formContainer">
+    <form method="post" action="/handleForm" enctype="multipart/form-data">
+        <div><input type="file" name="file" multiple required></div>
+        <div><input type="submit" value="upload"></div>
+    </form>
+</div>

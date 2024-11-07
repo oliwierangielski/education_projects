@@ -1,0 +1,11 @@
+.gameTable{
+    border-collapse: collapse;
+}
+
+.gameCell{
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    background-color: rgb(211, 229, 235);
+    cursor: pointer;
+}

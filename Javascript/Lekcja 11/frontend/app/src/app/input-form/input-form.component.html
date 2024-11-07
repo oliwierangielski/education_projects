@@ -1,0 +1,3 @@
+<label>Wpisz zarobki z poprzedniego roku: </label><input [(ngModel)]="uname" (input)="validateNumber($event)"> EUR
+<p>I tak widzimy, ze twoje zarobki to: {{uname | number: '1.0-3' | noComma  }}</p>
+<!-- currency: 'EUR':true -->

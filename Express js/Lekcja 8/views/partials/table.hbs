@@ -1,0 +1,29 @@
+<div class="tableContainer">
+    <h3>wszystkie pojazdy:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>ubezpieczony</th>
+                <th>benzyna</th>
+                <th>uszkodzony</th>
+                <th>naped4x4</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this}}
+            {{#if insurance}}
+            <tr>
+                <td>{{number}}</td>
+                <td>{{insurance}}</td>
+                <td>{{gasoline}}</td>
+                <td>{{damaged}}</td>
+                <td>{{drive}}</td>
+                <td></td>
+            </tr>
+            {{/if}}
+            {{/each}}
+        </tbody>
+    </table>
+</div>

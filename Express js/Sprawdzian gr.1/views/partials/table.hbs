@@ -1,0 +1,20 @@
+<table>
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>KATEGORIA</th>
+            <th>CENA</th>
+            <th>OCENA</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each items}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{category}}</td>
+                <td class="price">{{priceToDouble price}}</td>
+                <td>{{{starsCreator stars img_url}}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="charset" content="Oliwier Angielski 4IB">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <style>
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .opinionList {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .opinion {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="react-app"></div>
+    <script type="text/babel">
+        class Start extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    arr:
+                        [
+                            {
+                                zgodnosc: 3,
+                                czas: 3,
+                                koszt: 3,
+                                obsluga: 3
+                            }
+                        ]
+                }
+
+            }
+            render() {
+                return (
+                    <>
+                        <h1>01: JSX Component - simple</h1>
+                        <OpinionList arr={this.state.arr} />
+                    </>
+                );
+            }
+        }
+
+        class OpinionList extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    arr: []
+                }
+            }
+            componentDidMount() {
+                this.setState({
+                    arr: this.props.arr
+                })
+            }
+
+            addOpinion = () => {
+                this.setState({
+                    arr: [...this.state.arr, {
+
+                        zgodnosc: 3,
+                        czas: 3,
+                        koszt: 3,
+                        obsluga: 3
+
+                    }]
+                })
+            }
+            delOpionion = (index) => {
+                console.log(index)
+                let arrayOpinion = this.state.arr
+                arrayOpinion.splice(index, 1)
+                this.setState({
+                    arr: [...arrayOpinion]
+                })
+            }
+
+            render() {
+                return (
+                    <div>
+                        <button onClick={this.addOpinion} >dodaj</button>
+                        {this.state.arr.map((elem, index) => {
+                            return (
+                                <div key={index} className="opinionList">
+                                    {index}
+                                    <Opinion ocena={elem.zgodnosc} title="zgodność" />
+                                    <Opinion ocena={elem.czas} title="czas" />
+                                    <Opinion ocena={elem.koszt} title="ocena" />
+                                    <Opinion ocena={elem.obsluga} title="obsluga" />
+                                    <button onClick={() => { this.delOpionion(index) }}>usun</button>
+                                </div>
+                            )
+                        })}
+                    </div>
+                )
+            }
+        }
+
+        class Opinion extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    ocena: 0
+                }
+            }
+            componentDidMount = () => {
+                this.setState({
+                    ocena: parseInt(this.props.ocena)
+                })
+            }
+            changeAllStars = (ocena) => {
+                this.setState({
+                    ocena: parseInt(ocena)
+                })
+            }
+            stars = []
+            generateStars = (ocena) => {
+                let stars = []
+                for (let i = 1; i <= 5; i++) {
+                    let img
+                    if (i <= parseInt(this.props.ocena)) {
+                        stars.push(<Star isActive={true} key={i} index={i} changeAllStars={this.changeAllStars} />)
+                    } else {
+                        stars.push(<Star isActive={false} key={i} index={i} changeAllStars={this.changeAllStars} />)
+                    }
+
+                }
+                this.stars = stars
+                return stars
+            }
+            generateTitle = (ocena) => {
+                switch (ocena) {
+                    case 0:
+                        return "Słabo"
+                        break;
+                    case 1:
+                        return "lepiej"
+                        break;
+                    case 2:
+                        return "w porządku"
+                        break;
+                    case 3:
+                        return "spoko"
+                        break;
+                    case 4:
+                        return "super"
+                        break;
+                    case 5:
+                        return "najlepiej"
+                        break;
+                }
+            }
+            render() {
+                let stars = []
+                let stari = (ocena) => {
+                    for (let i = 1; i <= 5; i++) {
+                        let img
+                        if (i <= parseInt(this.props.ocena)) {
+                            stars.push(<Star isActive={true} key={i} index={i} changeAllStars={this.changeAllStars} />)
+                        } else {
+                            stars.push(<Star isActive={false} key={i} index={i} changeAllStars={this.changeAllStars} />)
+                        }
+                    }
+                    return stars
+                }
+                return (
+                    <div className="opinion">
+                        <div>{this.props.title}</div>
+                        <div>{this.generateTitle(this.state.ocena)}</div>
+                        <div>{stari(this.state.ocena)}</div>
+                    </div>
+                )
+            }
+        }
+
+        class Star extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    isActive: true
+                }
+            }
+            componentDidMount = () => {
+                this.setState({
+                    isActive: this.props.isActive
+                })
+            }
+            onStarClick = () => {
+                this.setState({
+                    isActive: !this.state.isActive
+                })
+                this.props.changeAllStars(this.props.index)
+            }
+            render() {
+                return (
+                    <img src={(this.state.isActive == true) ? "stary.png" : "star.png"} onClick={this.onStarClick} />
+                )
+            }
+
+        }
+
+        ReactDOM.render(
+            <Start />,
+            document.getElementById('react-app')
+        );
+    </script>
+</body>
+
+</html>

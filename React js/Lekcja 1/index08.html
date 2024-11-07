@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="charset" content="Oliwier Angielski 4IB">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <div id="react-app"></div>
+    <script type="text/babel">
+        const imagesData = [
+           {id:1, name:"hamlet" },
+           {id:2, name:"krzyzacy" },
+           {id:3, name:"lalka" }
+        ]
+        class Start extends React.Component {
+            render() {
+                return (
+                    <>
+                        <h1>08: images list - data from array</h1>
+                        <ImageList images={imagesData}/>
+                    </>
+                );
+            }
+        }
+
+        class ImageList extends React.Component {
+            render() {
+                let content = this.props.images.map(function(elem){
+                    return (<Image key={elem.id} name={elem.name} />)
+                })
+                return (
+                    <div className={"imageList"}>
+                        {content}
+                    </div>
+                )
+            }
+        }
+
+        class Image extends React.Component {
+            makeImageName(){
+                return this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1)
+            }
+            makeImageUrl(){
+                return "/gfx/" + this.props.name + ".jpg"
+            }
+            render() {
+                this.makeImageName()
+                return (
+                    <div className={"imageContainer"}>
+                        <div className={"imageTitle"}>
+                            {this.makeImageName()}
+                        </div>
+                        <div>
+                            <img className={"image"} src={this.makeImageUrl()}/>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <Start />,
+            document.getElementById('react-app')
+        );
+        </script>        
+</body>
+</html>

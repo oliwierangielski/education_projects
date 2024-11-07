@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="stylesheet" href=".styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <script src=".libs/three145.js"></script>
+</head>
+
+<body>
+    <div class="headContainer">
+        <h1>06: trzy range - skalowanie figury: width, height, depth</h1>
+        <div class="controlMenu">
+            <div><label for="width">width </label><input type="range" id="width" value="1" min="0.1" max="5" step="0.1"></div>
+            <div><label for="height">height </label><input type="range" id="height" value="1" min="0.1" max="5" step="0.1"></div>
+            <div><label for="depth">depth </label><input type="range" id="depth" value="1" min="0.1" max="5" step="0.1"></div>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+        window.addEventListener("load", function () {
+            // scena 3D
+            const scene = new THREE.Scene();
+            const axes = new THREE.AxesHelper(1000)
+            scene.add(axes)
+            geometry = new THREE.BoxGeometry(30,30,30, 4,4,4)
+            material = new THREE.MeshNormalMaterial()
+            cube = new THREE.Mesh(geometry, material)
+            cube.position.set(0, 0, 0)
+            scene.add(cube)
+
+            //kamera perspektywiczna - przeczytaj dokładnie objaśnienia w komentarzach
+
+            const camera = new THREE.PerspectiveCamera(
+                45,    // kąt patrzenia kamery (FOV - field of view)
+                window.innerWidth / window.innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+                0.1,    // minimalna renderowana odległość
+                10000    // maksymalna renderowana odległość od kamery
+            );
+
+            // renderer wykorzystujący WebGL - działa stabilnie na wszystkich
+            // najnowszych przeglądarkach zarówno desktopowych jak mobilnych
+
+            const renderer = new THREE.WebGLRenderer();
+
+            // kolor tła sceny - uwaga na prefix 0x a nie #
+
+            renderer.setClearColor(0xffffff);
+
+            // ustal rozmiary renderowanego okna w px (szer, wys)
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // dodanie renderera do diva, który istnieje na scenie
+
+            document.getElementById("root").appendChild(renderer.domElement);
+
+
+            // lub
+
+            camera.position.set(100, 100, 100)
+
+            // nakierowanie kamery na punkt (0,0,0) w przestrzeni (zakładamy, że istnieje już scena)
+
+            camera.lookAt(scene.position);
+
+            // kluczowy element - animacja
+
+            function render() {
+
+
+                //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
+                //np zmieniająca się wartość rotacji obiektu
+
+                //mesh.rotation.y += 0.01;
+
+                //wykonywanie funkcji bez końca, ok 60 fps jeśli pozwala na to wydajność maszyny
+
+                requestAnimationFrame(render);
+
+                // potwierdzenie w konsoli, że render się wykonuje
+
+                console.log("render leci")
+
+                //ciągłe renderowanie / wyświetlanie widoku sceny naszą kamerą
+                cube.scale.x = document.getElementById("width").value
+                cube.scale.y = document.getElementById("height").value
+                cube.scale.z = document.getElementById("depth").value
+                renderer.render(scene, camera);
+            }
+
+            // na koniec jednokrotne wykonanie powyższej funkcji
+
+            render();
+        })
+
+        
+    </script>
+</body>
+
+</html>

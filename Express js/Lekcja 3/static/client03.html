@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <title>Oliwier Angielski 4IB</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+    <h2>ćwiczenie 03 - ajax, json data</h2>
+    <input name="text1" type="text" id="text1">
+    <input name="text2" type="text" id="text2">
+    <div class="klik" id="klik">klik</div>
+    <script>
+
+     $("#klik").on("click", function(){
+        let text1 = parseFloat($("#text1").val())
+        let text2 = parseFloat($("#text2").val())
+        $.ajax({
+        url: "/post",
+        contentType: 'application/json',
+        data: JSON.stringify({
+            a: text1,
+            b: text2
+        }),
+        type: "POST",
+        success: function (data) {
+            //czytamy odesłane z serwera dane
+           alert(`suma: ${text1+text2}\niloczyn: ${text1*text2}`)
+           
+           console.log(data)
+            //ew parsujemy na obiekt
+            var obj = JSON.parse(data)
+
+        },
+        error: function (xhr, status, error) {
+            console.log('Error: ' + error.message);
+        },
+});
+     })   
+    </script>
+</body>
+</html>

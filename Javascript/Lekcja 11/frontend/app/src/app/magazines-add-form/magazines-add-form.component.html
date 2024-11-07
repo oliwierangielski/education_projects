@@ -1,0 +1,30 @@
+<form>
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Nazwa Pisma</mat-label>
+      <input matInput placeholder="Superpismo" name="pismo" [(ngModel)]="pismo" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Plik miniaturki</mat-label>
+      <input matInput placeholder="superpismo.jpg" name="miniaturka" [(ngModel)]="miniaturka" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Wybierz opcje</mat-label>
+      <mat-select multiple name="wybraneOpcje" [(ngModel)]="wybraneOpcje" [ngModelOptions]="{standalone: true}">
+        <mat-option *ngFor="let option of options" [value]="option">{{ option }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button mat-raised-button color="primary" (click)="postForm()">Dodaj</button>
+  </div>
+</form>
+
+<mat-divider></mat-divider>

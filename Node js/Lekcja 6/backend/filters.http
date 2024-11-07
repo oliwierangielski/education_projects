@@ -1,0 +1,30 @@
+### GET = pobierz metadane zdjęcia
+GET http://localhost:3000/api/filters/metadata/1685044964457 HTTP/1.1
+
+### Patch = wyślij tablicę z filtrami
+PATCH http://localhost:3000/api/filters/1685614207717 HTTP/1.1
+content-type: application/json
+
+{
+        "rotate": 90,
+        "resize":  {
+            "width": 150,
+            "height": 90
+        },
+        "format": "png",
+        "crop": {
+            "width": 200,
+            "height": 200,
+            "left": 20,
+            "top": 20
+        },
+        "grayscale": true,
+        "flip": true,
+        "flop": true,
+        "negate": true,
+        "tint": {
+            "r": 235,
+            "g": 119,
+            "b": 222
+        }
+}

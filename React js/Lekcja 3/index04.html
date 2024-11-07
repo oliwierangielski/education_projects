@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 04: React forms - radios</h1>
+                    <MyForm />
+                </>
+            );
+        }
+    }
+    class MyForm extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                selectedOption: "",
+                resultsArray: []
+            }
+        }
+        removeOptionById = (index) => {
+            let array = this.state.resultsArray
+            array.splice(index-1, 1)
+            this.setState({
+                resultsArray: array
+            })
+        }
+        onOptionChange = (event) => {
+            this.setState({
+                selectedOption: event.target.value,
+                resultsArray: [...this.state.resultsArray, {
+                    id: this.state.resultsArray.length + 1,
+                    name: event.target.value,
+                    choice: 1
+                }]
+            })
+        }
+        render() {
+            return (
+                <div className="myForm2">
+                    <div className="myForm2Title">MyForm comp</div>
+                    <div>
+                        <input type="radio" name="radioAdd" value="AAA" className="radioInput" checked={this.state.selectedOption == 'AAA'} onChange={this.onOptionChange} /><label>AAA</label>
+                        <input type="radio" name="radioAdd" value="BBB" className="radioInput" checked={this.state.selectedOption == 'BBB'} onChange={this.onOptionChange} /><label>BBB</label>
+                    </div>
+                    <div className="myRadiosContainer">
+                        {
+                            this.state.resultsArray.map((elem, index) => {
+                                return (<MyRadios id={elem.id} name={elem.name} choice={elem.choice} onRemove={this.removeOptionById} key={index} />)
+                            })
+                        }
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    class MyRadios extends React.Component {
+        constructor(){
+            super()
+            this.state = {
+                choice: 1
+            }
+        }
+        componentDidMount = () => {
+            this.setState({
+                choice: this.props.choice
+            })
+        }
+        onChoiceChange = (event) => {
+            this.setState({
+                choice: event.target.value
+            })
+        }
+        onButtonClick = () => {
+            this.props.onRemove(this.props.id)
+        }
+        render() {
+            let radios = []
+            for(let i = 1; i <= 5; i++){
+                radios.push(
+                    <div key={i}>
+                        <input type="radio" value={i} checked={this.state.choice == i} onChange={this.onChoiceChange} className="radioInput" /><label>{i}</label>
+                    </div>
+                )
+            }
+            return (
+                <div className="myRadios">
+                    <div className="myRadiosTitle">AAA</div>
+                    <div className="myRadiosId">id: {this.props.id}</div>
+                    <div className="myRadiosChoice">wybrano {this.state.choice}</div>
+                    <img src={"images/" + this.props.name + ".jpg"} alt={this.props.name} className="myRadiosImage" />
+                    <div className="radiosContainer">
+                        {radios}
+                    </div>
+                    <button className="button" onClick={this.onButtonClick}>delete</button>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

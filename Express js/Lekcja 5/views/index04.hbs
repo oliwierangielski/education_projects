@@ -1,0 +1,24 @@
+<h1 class="style2">{{ subject }}</h1>
+
+    {{#if noOptionTitle}}
+        <h3 class="style1">nie wybrano opcji w select</h3>
+    {{/if}}
+    {{#if selectedInfo}}
+        {{#each selectedInfo}}
+            <h3 class="style1">{{value}}</h3>
+        {{/each}}
+    {{/if}}
+
+
+{{#if fields}}
+    <form action="/handle04" method="get">
+        <div class="formContainer">
+            <select name="select" size="{{count}}">
+                {{#each fields}}  
+                    <option value="{{ name }}">{{ name }}</option>
+                {{/each}}
+            </select>
+            <input type="submit" value="wyślij">
+        </div>
+    </form>
+{{/if}}

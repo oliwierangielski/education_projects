@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <title>Oliwier Angielski 4IB</title>
+	<script src="client/script.js" defer></script>
+	<style>
+		body {
+			background-color: #eeeeee;
+		}
+		table{
+			border-collapse: collapse;
+		}
+		td, th{
+			font-size: 20px;
+			padding: 2px 20px 2px 20px;
+			border: 1px solid black;
+		}
+		img{
+			height: 25px;
+			cursor: pointer;
+		}
+
+		select{
+			width: 100px;
+		}
+	</style>
+</head>
+<body onload="get(); loadOptions('country', 'countries'); loadOptions('material', 'materials')">
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				<th>nominał</th>
+				<th>nr kat.</th>
+				<th>stop</th>
+				<th>rok</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id="tbody"></tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">Dodawanie rekordu</td>
+			</tr>
+			<tr>
+				<td><select id="country" required></select></td>
+				<td><input type="text" id="currency" required></td>
+				<td><input type="text" id="category" required></td>
+				<td><select id="material" required></select></td>
+				<td><input type="number" id="year" required></td>
+				<td><img src="client/images/faja.png" onclick="send('add')"></td>
+			</tr>
+		</tfoot>
+	</table>
+	<!-- <input id="imie"><button id="send" onclick="send()">Dodaj</button> -->
+</body>
+</html>

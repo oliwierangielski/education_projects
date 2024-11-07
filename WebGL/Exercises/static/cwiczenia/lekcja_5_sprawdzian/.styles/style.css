@@ -1,0 +1,22 @@
+.headContainer {
+    padding: 10px;
+}
+
+h1{
+    margin: 0;
+    color: blue;
+}
+
+.controlsRight{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 204px;
+}
+
+.control{
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    border: 2px solid black;
+}

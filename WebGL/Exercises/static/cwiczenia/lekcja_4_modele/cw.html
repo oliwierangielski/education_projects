@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="stylesheet" href=".styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <script src=".libs/three97.js"></script>
+    <script defer src=".js/Grid.js"></script>
+</head>
+<body>
+    <div class="headContainer">
+        <h1>03 - load md2 model (.MD2)</h1>
+        <div class="controlMenu">
+            <button class="button amountBtn" id="addBtn">add</button>
+            <button class="button amountBtn" id="deleteBtn">delete</button>
+            <button class="button amountBtn" id="removeBtn">remove</button>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+        let meshModelClone
+        let animationAction
+        let scene
+        let cloneNumber = 0
+        let rowSize = 2
+        let clonePos = {x: -200, z: -200}
+        let clonesArray = []
+        document.getElementById("addBtn").onclick = function() {
+            cloneNumber++
+            // const box = new THREE.Box3().setFromObject(meshModelClone);
+            // let orginalMeshSize = box.getSize();
+            const clone = meshModelClone.clone()
+            clone.position.set(clonePos.x,0,clonePos.z)
+            scene.add(clone)
+            const cloneMixer = new THREE.AnimationMixer(clone)
+            cloneMixer.clipAction("run").play()
+            clonesArray.push({mesh: clone, mixer: cloneMixer, rowSize: rowSize, cloneId: cloneNumber})
+
+            if(cloneNumber < rowSize){
+                clonePos.x += 400
+            } else if(cloneNumber < 2 * rowSize-1){
+                clonePos.z += 400
+            } else if(cloneNumber < 3 * rowSize-2){
+                clonePos.x -= 400
+            } else if (cloneNumber < rowSize * 2 + (rowSize-2)*2){
+                clonePos.z -= 400
+            } else {
+                rowSize+=2
+                clonePos.z -= 800
+                clonePos.x -= 400
+                cloneNumber = 0
+            }
+        }
+        
+        document.getElementById("deleteBtn").onclick = function() {
+            if(clonesArray.length > 0){
+                let lastClone = clonesArray.pop()
+                scene.remove(lastClone.mesh)
+                clonePos = {x: lastClone.mesh.position.x, z: lastClone.mesh.position.z}
+                cloneNumber = --lastClone.cloneId
+                rowSize = lastClone.rowSize
+            }
+        }
+
+        document.getElementById("removeBtn").onclick = function() {
+            while(clonesArray.length > 0){
+                scene.remove(clonesArray.pop().mesh)
+            }
+            rowSize = 2
+            cloneNumber = 0
+            clonePos = {x: -200, z: -200}
+        }
+
+        window.addEventListener("load", function () {
+            scene = new THREE.Scene();
+            // Ground
+            const grid = new Grid()
+            const plane = grid.getMesh()
+            const gridHelper = grid.getGridHelper()
+            scene.add(plane, gridHelper)
+            // Texture
+            const modelMaterial = new THREE.MeshBasicMaterial({
+                map: new THREE.TextureLoader().load(".mats/mario2.jpg"), // texture location
+                morphTargets: true // true => can model be animated
+            })
+            const modelMaterialClone = new THREE.MeshBasicMaterial({
+                map: new THREE.TextureLoader().load(".mats/mario.jpg"), // texture location
+                morphTargets: true // true => can model be animated
+            })
+            // Clock and mixer (needed for animation)
+            const clock = new THREE.Clock()
+            let mixer
+            // Model
+            const loader = new THREE.JSONLoader();
+            loader.load('.models/mario.json', function (geometry){
+                const meshModel = new THREE.Mesh(geometry, modelMaterial)
+                meshModel.name = "Mario"
+                meshModel.rotation.y = 2.5
+                meshModel.position.y = 1
+                meshModel.scale.set(10,10,10)
+                meshModelClone = new THREE.Mesh(geometry, modelMaterialClone)
+                meshModelClone.rotation.y = 2.5
+                meshModelClone.position.y = 1
+                meshModelClone.scale.set(10,10,10)
+                meshModelClone.name = "Mario Clone"
+                
+                scene.add(meshModel);
+                // Animations
+                mixer = new THREE.AnimationMixer(meshModel) // Animation Mixer (controls animation)
+                const animationsContainer = document.createElement("div")
+                animationsContainer.classList.add("animationsContainer")
+                document.body.appendChild(animationsContainer)
+                let activeBtn = null // now active button
+                geometry.animations.forEach(animation => {
+                    let animationButton = document.createElement("button")
+                    animationButton.classList.add("button")
+                    animationButton.innerText = animation.name
+                    animationButton.onclick = function (){
+                        animationAction?.stop()
+                        mixer?.uncacheAction(activeBtn?.innerText)
+                        activeBtn?.classList.remove("active")
+                        if(activeBtn != this){
+                            activeBtn = this
+                            activeBtn.classList.add("active")
+                            animationAction = mixer.clipAction(activeBtn.innerText)
+                            animationAction.play()
+                        } else {
+                            activeBtn = null
+                        }
+                    }
+                    animationsContainer.appendChild(animationButton)
+                });
+            })
+
+            const camera = new THREE.PerspectiveCamera(
+                45,    // FOV
+                window.innerWidth / window.innerHeight,    // Aspect Ratio
+                0.1,    // min render distance
+                10000    // max render distance
+            );
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setClearColor(0xffffff); 
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById("root").appendChild(renderer.domElement);
+            camera.position.set(2500, 2200, 2500)
+            // camera.position.set(0, 1000, 0) // fov += 100
+            camera.lookAt(scene.position);
+            function render() {
+                requestAnimationFrame(render);
+                // Playing animation with delta time
+                let delta = clock.getDelta()
+                if (mixer) mixer.update(delta)
+                if (clonesArray.length > 0){
+                    clonesArray.forEach((cloneMixer) => {
+                        cloneMixer.mixer.update(delta)
+                    })
+                }
+                renderer.render(scene, camera); // repeating rendering
+            }
+            render();
+        })
+    </script>
+</body>
+</html>

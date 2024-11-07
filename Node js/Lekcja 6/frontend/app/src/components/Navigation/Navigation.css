@@ -1,0 +1,27 @@
+.link{
+    color: inherit;
+}
+
+.navbarItem{
+    font-weight: inherit!important;
+}
+
+.loginInput{
+    padding: 2px;
+}
+
+.loginPopover{
+    padding: 3px;
+    background-color: rgba(0, 0, 0, 0)!important;
+    -webkit-box-shadow: none!important;
+  -moz-box-shadow: none!important;
+  box-shadow: none!important;
+}
+
+.regInput{
+    border-radius: 5px!important;
+}
+
+.regInputHolder{
+    margin: 15px;
+}

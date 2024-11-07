@@ -1,0 +1,12 @@
+<h1 class="style2">{{ subject }}</h1>
+{{#ifEq subject "T: ćwiczenie 10 - użycie helperów cz2"}}
+<form action="handleForm" method="get">
+    <input type="text" name="text" value="{{title}}">
+    <input type="submit" value="Submit">
+</form>
+{{/ifEq}}
+<h3 class="style1"><span class="helperHint">tekst wyjściowy:</span>{{title}}</h3>
+<h3 class="style1"><span class="helperHint">10 znaków:</span>{{shortTitle title}}</h3>
+<h3 class="style1"><span class="helperHint">duże litery:</span>{{upperCase title}}</h3>
+<h3 class="style1"><span class="helperHint">myślniki:</span>{{dashes title}}</h3>
+

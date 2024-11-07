@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+    // sky's the limit lec po swoje
+    // nikt gorszy kazdy lepszy
+    // coc jambo i do przodu
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 05: React state - add components</h1>
+                    <FoodList />
+                </>
+            );
+        }
+    }
+
+    class FoodList extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                food: ["hamburger", "trufle"]
+            }
+        }
+        onButtonClick = (foodValue) => {
+            if (foodValue == "tanie") {
+                this.setState({food: [...this.state.food, "hamburger"]})
+            } else if (foodValue == "drogie") {
+                this.setState({food: [...this.state.food, "trufle"]})
+            }
+        }
+        render() {
+            return (
+                <div className={"foodList"}>
+                    <div>
+                        Add compoonent&nbsp;
+                        <button onClick={() => { this.onButtonClick("tanie") }} className={"foodBtn"}>dodaj tanie</button>&emsp;
+                        <button onClick={() => { this.onButtonClick("drogie") }} className={"foodBtn"}>dodaj drogie</button>
+                    </div>
+                    <div className={"squareContainer"}>
+                        { this.state.food.map((element, index) => {
+                            return (<Food name={element} key={index} index={index}/>)
+                        })}
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    class Food extends React.Component {
+        render() {
+            return (
+                <div className={"foodHolder"} style={{ justifyContent: "space-between", textAlign: "center" }}>
+                    <div>{this.props.name}</div>
+                    <div className={"foodIndex"}>{this.props.index}</div>
+                    <div><img src={"images/" + this.props.name + ".jpg"} alt={this.props.name} className={"foodImage"}/></div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

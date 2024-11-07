@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <h1>ćwiczenie 06 - colors (ranges), no form</h1>
+    <div>
+        <div><label for="redRange" class="rgbaLabel">r:&nbsp;</label><input type="range" id="redRange" class="rgbaRange" min="0" max="255" step="1" value="0" onchange="fetchColor()"></div>
+        <div><label for="greenRange" class="rgbaLabel">g:&nbsp;</label><input type="range" id="greenRange" class="rgbaRange" min="0" max="255" step="1" value="0" onchange="fetchColor()"></div>
+        <div><label for="blueRange" class="rgbaLabel">b:&nbsp;</label><input type="range" id="blueRange" class="rgbaRange" min="0" max="255" step="1" value="0" onchange="fetchColor()"></div>
+        <div><label for="alphaRange" class="rgbaLabel">a:&nbsp;</label><input type="range" id="alphaRange" class="rgbaRange" min="0" max="100" step="1" value="100" onchange="fetchColor()"></div>
+        <div id="colorSquare"></div>
+    </div>
+    <script>
+        function fetchColor(){
+            const data = JSON.stringify({
+                r: document.getElementById("redRange").value,
+                g: document.getElementById("greenRange").value,
+                b: document.getElementById("blueRange").value,
+                a: document.getElementById("alphaRange").value,
+            })
+            const options = {
+                method: "POST",
+                body: data
+            };
+            fetch("/colors", options)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("colorSquare").style.backgroundColor = data
+                })
+                .catch(error => console.log(error));
+        }
+        window.onload = ()=> {
+            fetchColor()
+        }
+    </script>
+</body>
+
+</html>

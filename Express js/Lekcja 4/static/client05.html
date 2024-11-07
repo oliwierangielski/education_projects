@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <h2 class="zadanie">05: post data to server by fetch</h2>
+    <button id="fetch">post fetch</button>
+    <button id="table">make table</button>
+    <div id="tableContainer"></div>
+
+    <script>
+        let clickedSquare
+        let time = 0
+        let timer = setInterval(() => {
+            time++
+        }, 1);
+
+        function fetchPost(a, b) {
+            const body = JSON.stringify({a: a, b: b, millis: time }) // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type":  "application/json"} // nagłówek czyli typ danych
+
+            fetch("/handleUpload", { method: "post", body, headers }) //fetch
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    if(clickedSquare)
+                        clickedSquare.style.background = "red"
+                }) // dane odpowiedzi z serwera
+        
+            
+        }   
+        
+
+        function createTable(){
+            let tableContainer = document.getElementById("tableContainer")
+            for(let i = 0; i < 3; i++){
+                let row = document.createElement("div")
+                for(let y = 0; y < 3; y++){
+                    let square = document.createElement("div")
+                    square.classList.add("square")
+                    square.onclick = function(event){
+                        let position = square.getBoundingClientRect()
+                        let parentPosition = tableContainer.getBoundingClientRect()
+                        let x = position.left - parentPosition.left
+                        let y = position.top - parentPosition.top
+                        clickedSquare = square
+                        fetchPost(`${x}px`, `${y}px`)
+                    }
+                    row.appendChild(square)
+                }
+                tableContainer.appendChild(row)
+            }
+        }
+
+        document.getElementById("fetch").onclick =  function(){
+            fetchPost(0, 0)
+        }
+
+        document.getElementById("table").onclick = function(){
+            createTable()
+            this.onclick = null
+        }
+    </script>
+</body>
+</html>

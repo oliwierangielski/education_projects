@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski">
+    <title>Oliwier Angielski 4IB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h2>zadanie: newsletter</h2>
+    <div class="formContainer">
+        <form action="/handleForm" method="POST">
+            <div class="inputHolder"><label for="nick">nick:&emsp;</label><input type="text" name="nick" id="nick" required></div>
+            <div class="inputHolder"><label for="email">email:&emsp;</label><input type="email" name="email" id="email" required></div>
+            <div><input type="submit" value="Submit"></div>
+        </form>
+    </div>
+    <div class="linkHolder">
+        <div><a href="/removeUserBySelect">usuń email z użyciem selecta</a></div>
+        <div><a href="/removeUserByRadio">usuń email z użyciem radio</a></div>
+        <div><a href="/removeUserByCheckbox">usuń email-e z użyciem checkbox-ów</a></div>
+    </div>
+</body>
+</html>

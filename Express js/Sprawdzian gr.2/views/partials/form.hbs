@@ -1,0 +1,11 @@
+<form action="handleForm", method="get">
+    <select name="category">
+        {{#each categories}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>
+    {{#each firstChars}}
+        <input type="checkbox" name="checkbox" value="{{this}}"><label for="checkbox">{{this}}</label>
+    {{/each}}
+    <input type="submit" value="FILTRUJ">
+</form>

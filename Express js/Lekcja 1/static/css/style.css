@@ -1,0 +1,47 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.pAuta{
+    color: red;
+}
+
+.pDrzewa{
+    color: green;
+}
+
+.pKoty{
+    color: blue;
+}
+
+h2{
+    margin-top: 0px;
+    background-color: lightgray;
+    height: 50px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    color: blue;
+    border-bottom: 2px solid gray;
+}
+
+img{
+    width: 300px;
+    margin-left: 50px;
+}
+
+a {
+    margin: 5px;
+    color: blue;
+    font-weight: bold;
+}
+
+#inscription{
+    color: blue;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    font-weight: 400;
+}

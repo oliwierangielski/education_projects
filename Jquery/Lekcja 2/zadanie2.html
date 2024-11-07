@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <title>Oliwier Angielski 4IB</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1 {
+            color: blue;
+            width: 700px;
+        }
+
+        .gen {
+            background-color: lightgray;
+            outline: none;
+            color: black;
+            width: 300px;
+            height: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            font-size: 25px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .child {
+            background-color: lightgray;
+            outline: none;
+            color: black;
+            width: 270px;
+            height: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            font-size: 25px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        .amountBtn {
+            width: 50px;
+            height: 50px;
+            background-color: green;
+            color: white;
+            margin-left: auto;
+        }
+
+        .delBtn {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            color: white;
+        }
+
+        .flexbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <script src="libs/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#btnCreate").on("click", function () {
+                let value = $("#select").val();
+                for (let i = 1; i <= value; i++) {
+                    let familyHolder = $("<div>");
+                    let div = $("<div>")
+                        .addClass("gen")
+                        .html("parent" + (i - 1))
+                    let btnAmount = $("<button>")
+                        .addClass("amountBtn flexbox")
+                        .text(0)
+                    let btnDel = $("<button>")
+                        .addClass("delBtn flexbox")
+                        .text("X")
+                    div.append(btnAmount).append(btnDel);
+
+                    familyHolder.append(div)
+                    $("#mainDiv").append(familyHolder);
+
+
+                    // Usuwanie
+                    btnDel.on("click", function () {
+                        let confirmDel = confirm("Czy usunąć przycisk?");
+                        if (confirmDel) {
+                            div.parent().remove();
+                        }
+                    })
+
+                    // Dodawanie
+                    btnAmount.on("click", function () {
+                        let childDiv = $("<div>")
+                            .addClass("child")
+                            .text("child");
+
+                        let childBtnDel = $("<button>")
+                            .addClass("delBtn flexbox")
+                            .text("X")
+                            .css("margin-left", "auto");
+
+                        childDiv.append(childBtnDel)
+
+                        btnAmount.parent().parent().append(childDiv)
+
+                        btnAmount.text(parseInt(btnAmount.text()) + 1);
+
+                        childBtnDel.on("click", function () {
+                            btnAmount.text(parseInt(btnAmount.text()) - 1);
+                            childDiv.remove();
+                        });
+                    });
+
+
+
+
+
+                }
+            });
+
+            $("#btnDelete").on("click", function () {
+                $("#mainDiv").empty();
+            });
+
+            $("#select").on("change", function () {
+                $("#mainDiv").empty();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>T: Pętla for, dynamicznie tworzenie i usuwanie html-a, cz1</h1>
+    <button id="btnCreate">UTWÓRZ MENU</button>
+    <button id="btnDelete">USUŃ MENU</button>
+    <select id="select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+    <div id="mainDiv"></div>
+</body>
+
+</html>

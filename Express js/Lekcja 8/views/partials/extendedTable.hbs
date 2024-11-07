@@ -1,0 +1,33 @@
+<div class="tableContainer">
+    <h3>wszystkie pojazdy -<br>edycja:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>ubezpieczony</th>
+                <th>benzyna</th>
+                <th>uszkodzony</th>
+                <th>naped4x4</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this}}
+            {{#if insurance}}
+            <tr>
+                <form id="form{{_id}}"></form>
+                <input type="hidden" name="id" value="{{_id}}" form="form{{_id}}">
+                <td>{{number}}</td>
+                <td>{{insurance}}</td>
+                <td>{{gasoline}}</td>
+                <td>{{damaged}}</td>
+                <td>{{drive}}</td>
+                <td><button type="submit" class="redBtn" onclick="return confirm('czy usunąć?')" formaction="/delete" form="form{{_id}}">DELETE</button></td>
+                <td><button class="blueBtn" onclick="editRecord(this, '{{_id}}', '{{number}}', '{{insurance}}', '{{gasoline}}', '{{damaged}}', '{{drive}}')">EDIT</button></td>
+            </tr>
+            {{/if}}
+            {{/each}}
+        </tbody>
+    </table>
+</div>

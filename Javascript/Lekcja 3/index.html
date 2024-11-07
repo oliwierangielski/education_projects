@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliwier Angielski 4IB</title>
+    <style>
+        .input{
+            width: 250px;
+        }
+
+        .imageContainer{
+            height: 200px;
+        }
+
+        .pointsContainerHeaderSection{
+            margin-top: 200px;
+            width: 380px;
+            text-align: center;
+        }
+
+        .pointsContainer{
+            border: 1px solid #000;
+            resize: none;
+            overflow: hidden;
+            font-size: 30px;
+        }
+
+        .roundContainer{
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 200px;
+        }
+
+        .controler{
+            position: fixed;
+            top:10px;
+            right: 10px;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="controler">
+        <form>
+            <input type="range" id="interval" min="0" max="200" step="5" value="100">
+            <label for="interval">Interval</label>
+        </form>
+    </div>
+    <div class="imageContainer">
+        <img id = "obraz" width = "300px" src="logo.jpg"/>
+    </div>
+
+    <form>
+        <div><input type="text" class="input" id="input"/></div>
+    </form>
+
+    <div class="pointsContainerHeaderSection"><h2>Punkty lecą z nieba?</h2></div>
+        <textarea class="pointsContainer" id="floatingContainer" cols="23" rows="16"></textarea>
+    </div>
+
+    <div class="roundContainer">
+        <img src="yinyang.png" id="circle" style="width: 120px; height: 120px; position: absolute; left: 0px; bottom: 0px;"/>
+    </div>
+
+    <script>
+
+
+        /*
+            Tutaj deklaruje wszystkie zmienne używane w skrypcie 
+        */
+
+        let intervalTime = 100 //zmienna mówiąca co jaki czas ma się powtarzać interwał
+        let ranger = document.querySelector("#interval") // zmienna z danymi z inputa ranger (prawy górny róg)
+        let interval;
+        ranger.addEventListener("change" , event =>{
+             intervalTime = ranger.value
+             window.clearInterval(interval)
+             interval = window.setInterval(intervalProccess, intervalTime)
+             console.log(intervalTime)
+        })
+
+        let obraz = document.getElementById("obraz") 
+        let direction = false;
+        let text = "Ciekawe, czy uda ci się to zrobić        "
+        let numberAdded = 0
+        const punkty = [
+            ".... szósty punkt .....", 
+            ".... piąty punkt ......",
+            ".... czwarty punkt ....",
+            ".... trzeci punkt .....",
+            ".... drugi punkt ......",
+            ".... pierwszy punkt ...",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+        let pointIndex = 0;
+        let floatingText = "";
+
+
+        let x = document.getElementById("circle").style.left
+        let y = document.getElementById("circle").style.bottom
+        let r = 200;
+        let radius = 0
+
+
+        /*
+            Tutaj zaczyna się funkcja interwałowa, która będzie się powtarzać
+        */
+
+        function intervalProccess() {
+            if(parseInt(obraz.offsetWidth) > 550 | parseInt(obraz.offsetWidth) < 250){
+                direction = ! direction
+            }
+                
+
+            if(!direction)
+                obraz.style.width = (obraz.offsetWidth+=40) + "px"
+            else
+                obraz.style.width = (obraz.offsetWidth-=40) + "px"
+
+                         
+
+            let input = document.getElementById("input")
+            if(input != document.activeElement){
+                text += text.charAt(numberAdded);
+                input.value = text.slice(numberAdded)
+                numberAdded++
+            }
+
+
+            let floatingContainer = document.getElementById("floatingContainer")
+
+            floatingText = punkty[pointIndex] + "\n" + floatingText
+            floatingContainer.value = floatingText
+            pointIndex++;
+            if(pointIndex == 15)
+                pointIndex = 0
+            
+                
+            
+
+            x = r * Math.sin(radius* Math.PI/180)
+            y = r * Math.cos(radius* Math.PI/180)
+            document.getElementById("circle").style.left = x + "px"
+            document.getElementById("circle").style.top = y + "px"
+
+            radius+=15
+            if(radius > 360) radius = 0
+        }
+
+
+
+        
+
+
+        interval = window.setInterval(intervalProccess, intervalTime)
+    </script>
+</body>
+</html>

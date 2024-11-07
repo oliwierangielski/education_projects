@@ -1,0 +1,73 @@
+<p>{{paramName}}</p>
+<mat-form-field>
+    <mat-label>Wybierz opcję</mat-label>
+    <mat-select [formControl]="myFormControl">
+      <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="nazwa">
+      <th mat-header-cell *matHeaderCellDef>Nazwa</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.nazwa }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="rok">
+      <th mat-header-cell *matHeaderCellDef>Rok</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.$?.rok }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="wydawca">
+      <th mat-header-cell *matHeaderCellDef>Wydawca</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.wydawca }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="format">
+      <th mat-header-cell *matHeaderCellDef>Format</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.format }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="miniaturka">
+      <th mat-header-cell *matHeaderCellDef>Miniaturka</th>
+      <td mat-cell *matCellDef="let magazine"><img *ngIf="magazine?.miniaturka" src="http://atarionline.pl//biblioteka/czasopisma/{{paramName}}/{{ magazine?.miniaturka }}" alt="Miniaturka {{magazine?.nazwa}}"/></td>
+    </ng-container>
+
+    <ng-container matColumnDef="numer">
+      <th mat-header-cell *matHeaderCellDef>Numer</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.numer }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="plik">
+      <th mat-header-cell *matHeaderCellDef>Plik</th>
+      <td mat-cell *matCellDef="let magazine"><a *ngIf="magazine?.plik" href="http://atarionline.pl//biblioteka/czasopisma/{{paramName}}/{{ magazine?.plik }}" download>{{ magazine?.plik }}</a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="podeslal">
+      <th mat-header-cell *matHeaderCellDef>Podesłał</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.podeslal }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="przetworzenie">
+      <th mat-header-cell *matHeaderCellDef>Przetworzenie</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.przetworzenie }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="skan">
+      <th mat-header-cell *matHeaderCellDef>Zeskanował</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.skan }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stron">
+      <th mat-header-cell *matHeaderCellDef>Liczba stron</th>
+      <td mat-cell *matCellDef="let magazine">{{ magazine?.stron }}</td>
+    </ng-container>
+
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  </table>
+  
+  

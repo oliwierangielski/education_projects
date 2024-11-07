@@ -1,0 +1,147 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    margin: 10px;
+}
+
+.style1{
+    color: blue;
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 5px;
+    flex: 0 0 100%;
+    margin: 13px;
+}
+
+.style2{
+    text-decoration: underline;
+}
+
+.style3{
+    color: gray;
+    margin: 30px;
+    text-decoration: underline;
+}
+
+.footer{
+    width: 100%;
+    margin-top: 50px;
+    height: 200px;
+    background-color: lightgray;
+    color: gray;
+    border-top: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer{
+    margin: 10px;
+}
+
+select {
+    width: 200px;
+    background-color: lightgray;
+    font-size: 20px;
+    color: blue;
+    border: 2px solid blue;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+option{
+    padding: 7px;
+}
+
+input[type=submit]{
+    width: 200px;
+    height: 45px;
+    color: blue;
+    border: 2px solid blue;
+    font-size: 20px;
+    display: block;
+}
+
+.inputHolder{
+    display: inline-block;
+    padding: 7px;
+    text-align: center;
+}
+
+.descriptionInside{
+    padding: 25px;
+}
+
+.helperHint{
+    color: rgb(147, 148, 152);
+    padding-right: 17px;
+}
+
+input[type=text]{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: block;
+    font-size: 30px;
+    border: 2px solid blue;
+}
+
+img{
+    float: left;
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.weatherInfo{
+    background-color: lightgray;
+    padding: 10px;
+}
+
+.weatherDesc{
+    text-transform: uppercase;
+    color: gray;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.weaherText{
+    text-transform: uppercase;
+}
+
+.weatherTable{
+    width: 100%;
+    text-align: center;
+    border-spacing: 5px 20px;
+}
+
+.weatherTableHead{
+    color: red;
+    font-size: 20px;
+}
+
+.weatherTableRowImage{
+    width: 100px;
+}
+
+.weatherTableRowTemp{
+    width: 250px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.tempNumber{
+    font-size: 50px;
+    color: gray;
+    font-weight: bold;
+}
+
+.tempDesc{
+    text-transform: uppercase;
+}

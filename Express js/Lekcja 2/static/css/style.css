@@ -1,0 +1,21 @@
+body{
+    font-size: 19px;
+}
+
+.formContainer{
+    background-color: greenyellow;
+    border: 1px solid gray;
+    padding: 20px;
+}
+
+.inputHolder{
+    margin: 10px;
+}
+
+.linkHolder{
+    margin-top: 30px;
+}
+
+.linkHolder a {
+    color: blue;
+}

@@ -1,0 +1,74 @@
+### POST - resejstracja usera
+POST http://localhost:3000/api/user/register HTTP/1.1 /
+content-type: application/json
+
+{
+    "login": "login4",
+    "name": "name",
+    "lastName": "lastName",
+    "email": "name@email34.pl",
+    "password": "password"
+}
+
+### GET - potwierdzenie rejestracji konta
+GET http://localhost:3000/api/user/confirm HTTP/1.1 /
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg1ODkwNTM5LCJleHAiOjE2ODYwNjMzMzl9.cY9O6cmEaOE6P_rNrdVh6J6lGlMFW91t2b4Z2IgeMGI
+### POST - logowanie usera
+POST http://localhost:3000/api/user/login HTTP/1.1 /
+content-type: application/json
+
+{
+    "credentials": "login4",
+    "password": "password"
+}
+
+# ### GET - wyświetlenie wszsystkich userów (funkcja testowa)
+# GET http://localhost:3000/api/user HTTP/1.1
+
+### GET - pobranie danych wlasnego usera do wyświetlenia w profilu
+GET http://localhost:3000/api/profile HTTP/1.1 /
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2ODU3NDYyLCJleHAiOjE2ODcwMzAyNjJ9.HGXJ6l4r75FpZX97shGWlWGZwqPkahoaUfd6Nq1RNHo
+
+### GET - pobranie danych dowonlnego profilu do wyswietlenia
+GET http://localhost:3000/api/profile/login4 HTTP/1.1
+### PATCH - aktualizacja danych usera w jego profilu
+PATCH http://localhost:3000/api/profile HTTP/1.1 /
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MjkwNjQyLCJleHAiOjE2ODY0NjM0NDJ9.5-_mfTOI0njMaH_FTbYab0DJtqwHyb5VLtuYE09w8yE
+content-type: application/json
+
+{
+    "name": "Marcin",
+    "lastName": "Kowalski",
+    "password": "12"
+}
+### POST - wysłanie zdjęcia profilowego
+POST http://localhost:3000/api/profile HTTP/1.1 /
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MjM2Njk5LCJleHAiOjE2ODY0MDk0OTl9.eXUsZXR75IdQmRWS8NpnmbWQ8caXwj2eAOVNPsNe1jE
+Content-Type: multipart/form-data; boundary=----FormBoundary1234
+
+------FormBoundary1234
+Content-Disposition: form-data; name="file"; filename="input.jpg"
+Content-Type: image/jpeg
+
+< ./input.jpg
+
+------FormBoundary1234
+Content-Disposition: form-data; name="album"
+Content-Type: text/plain
+
+nazwa_albumu
+------FormBoundary1234
+
+### GET - wylogowanie
+GET http://localhost:3000/api/user/logout HTTP/1.1 /
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2ODU3NDYyLCJleHAiOjE2ODcwMzAyNjJ9.HGXJ6l4r75FpZX97shGWlWGZwqPkahoaUfd6Nq1RNHo
+
+### GET - pobranie zdjęcia profilowego
+GET http://localhost:4000/api/photos/photofromurl/oliwier HTTP/1.1
+
+
+content-type: application/json
+
+{
+    "url": "/Users/oliwierangielski/Documents/Node/Lekcja 6/backend/images/user.png"
+}

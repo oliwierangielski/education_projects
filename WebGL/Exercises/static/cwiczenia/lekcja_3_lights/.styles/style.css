@@ -1,0 +1,45 @@
+body{
+    margin: 0;
+    overflow: hidden;
+}
+
+.headContainer {
+    padding: 10px;
+    position: absolute;
+}
+
+h1{
+    margin: 0;
+    color: blue;
+    text-decoration: underline;
+}
+
+
+.range{
+    width: 170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label{
+    color: red;
+    font-size: 24px;
+}
+
+.controlMenu{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+
+button {
+    color: blue;
+    background-color: rgb(231, 228, 228);
+    border: 2px solid blue;
+    padding: 9px;
+    width: 80px;
+    border-radius: 9px;
+    font-weight: bold;
+    margin-right: 15px;
+    cursor: pointer;
+}

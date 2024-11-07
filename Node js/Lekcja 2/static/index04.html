@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <h1>ćwiczenie 04 - fetch - URLSeachParams, no form</h1>
+    <div>
+        <input type="text" id="txt1">
+        <input type="text" id="txt2">
+        <select id="operation">
+            <option value="sum">suma</option>
+            <option value="diff">różnica</option>
+            <option value="pro">iloczyn</option>
+            <option value="quo">iloraz</option>
+            <option value="all">wszystko</option>
+        </select>
+        <div><input type="submit" value="klik" id="submitBtn" class="clickBtn" style="background-color: red;"></div>
+    </div>
+    <script>
+        document.getElementById("submitBtn").onclick = () => {
+            let data = new URLSearchParams();
+            data.append("txt1", document.getElementById("txt1").value);
+            data.append("txt2", document.getElementById("txt2").value);
+            data.append("operation", document.getElementById("operation").value);
+            const options = {
+               method: "POST",
+               body: data
+            };
+            fetch("/obliczenia", options)
+               .then(response => response.json())
+               .then(data => alert(JSON.stringify(data, null, 5)))
+               .catch(error => console.log(error));
+            }
+    </script>
+</body>
+</html>

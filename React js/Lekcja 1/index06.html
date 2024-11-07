@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="charset" content="Oliwier Angielski 4IB">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <div id="react-app"></div>
+    <script type="text/babel">
+        class Start extends React.Component {
+            render() {
+                return (
+                    <>
+                        <h1>06: map, filter - operacje na tablicach</h1>
+                    </>
+                );
+            }
+        }
+        
+        ReactDOM.render(
+            <Start />,
+            document.getElementById('react-app')
+        );
+    </script>
+    <script>
+        const data = [
+            { id: 1, quantity: 1, name: "masło" },
+            { id: 2, quantity: 6, name: "mleko" },
+            { id: 3, quantity: 3, name: "chleb" }
+        ];
+        data.map(function (elem, i) {
+            console.log(i + " dowolne działanie dla każdego elementu tablicy data")
+        })
+        let array = data.map(function (elem) {
+            return (elem.quantity)
+        })
+        console.log(array)
+        array = data.map(function (elem) {
+            return (elem)
+        })
+        console.log(array)
+        array = data.map(function (elem) {
+            return elem.quantity * 2
+        })
+        console.log(array)
+        array = data.map(function (elem) {
+            return {
+                id: elem.id,
+                quantity: elem.quantity * 3,
+                name: elem.name
+            }
+        })
+        console.log(array)
+        data.filter(function (elem) {
+            console.log("dowolne działanie dla każdego elementu tablicy data")
+        })
+        data.filter(function (elem) {
+            console.log(elem.quantity > 1)
+        })
+        data.filter(function (elem) {
+            console.log(elem.name == "chleb")
+        })
+        array = data.filter(function (elem) {
+            return elem.name == "chleb"
+        })
+        console.log(array)
+        array = data.filter(function (elem) {
+            return elem.quantity > 1
+        })
+        console.log(array)
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 06: React state - random style</h1>
+                    <Parent />
+                </>
+            );
+        }
+    }
+
+    class Parent extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                a: 200,
+                b: 200,
+                c: "#e4e4e4"
+            }
+        }
+        render() {
+            return (
+                    <div className={"colorDivContainer"}>
+                        <Child state={this.state} />
+                        <Child state={this.state} />
+                        <Child state={this.state} />
+                        <Child state={this.state} />
+                    </div>
+            );
+        }
+    }
+
+    class Child extends React.Component {
+        componentDidMount() {
+            this.setState(this.props.state)
+        }
+        constructor() {
+            super()      
+        }
+        onButtonClick = () => {
+             this.setState({
+                a: Math.floor(Math.random()*300) + 200,
+                b: Math.floor(Math.random()*300) + 200,
+                c: '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0')
+             })
+        }
+        render() {
+            return (
+                <div style={{height: this.state?.b, backgroundColor: this.state?.c}} className={"colorDiv"}>
+                   <div>a = {this.state?.a}</div>
+                   <div>b = {this.state?.b}</div>
+                   <div>c = {this.state?.c}</div>
+                   <div><button className={"colorDivBtn"} onClick={this.onButtonClick}>random</button></div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

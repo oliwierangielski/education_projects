@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 03: React state - state of all components</h1>
+                    <FoodList />
+                </>
+            );
+        }
+    }
+
+    class FoodList extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                food: ["masło", "mleko", "chleb", "dżem"]
+            }
+        }
+
+        onButtonClick = () => {
+            this.setState({randomFood: this.state.food[Math.floor(Math.random() * 4)]});
+        }
+
+        render() {
+            return (
+                <div className={"foodList"}>
+                    <div>List component&nbsp;<button onClick={this.onButtonClick} className={"foodBtn"}>wylosuj we wszystkich</button></div>
+                    <div className={"squareContainer"}>
+                        <Food food={this.state.randomFood} />
+                        <Food food={this.state.randomFood} />
+                        <Food food={this.state.randomFood} />
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    class Food extends React.Component {
+        render() {
+            return (
+                <div className={"square"} style={{justifyContent: "space-between"}}>
+                    <h1>{this.props.food}</h1>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class App extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                data: []
+            }
+            this.changeDataWithServer()
+        }
+        changeDataWithServer = (data = null, threadID = null) => {
+            const options = {
+                method: "POST",
+            };
+            if (data != null && threadID != null) {
+                options.body = JSON.stringify({
+                    threadID: threadID,
+                    text: data
+                })
+            }
+            fetch("/api", options)
+                .then(response => response.json()) // konwersja na json
+                .then(data => this.setState({ data: data })) // dane odpowiedzi z serwera
+                .catch(error => console.log(error));
+        }
+        render() {
+            return (
+                <>
+                    <h1>cw 06: React forms - textarea - post comments</h1>
+                    <div className="commentsApp">
+                        {this.state.data.map((elem, index) => {
+                            return (<CommentsList id={elem.id} title={elem.thread} comments={elem.comments} changeDataWithServer={this.changeDataWithServer} key={index} />)
+                        })}
+                    </div>
+                </>
+            );
+        }
+    }
+
+    class CommentsList extends React.Component {
+        render() {
+            return (
+                <div className="commentsList">
+                    <div className="commentsListTitle">title: {this.props.title}, id: {this.props.id}</div>
+                    <div className="sectionHolder">
+                        {this.props.comments.map((elem, index) => {
+                            return (<Comment id={elem.id} text={elem.text} date={elem.date} key={index} />)
+                        })}
+                    </div>
+                    <div className="sectionHolder">
+                        <CommentsForm changeDataWithServer={this.props.changeDataWithServer} threadID={this.props.id} />
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    class CommentsForm extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                text: "",
+                status: "niewysłane"
+            }
+        }
+        handleChange = (event) => {
+            this.setState({
+                text: event.target.value,
+                status: "niewysłane"
+            })
+        }
+        handleSubmit = (event) => {
+            if (this.state.text != "") {
+                this.props.changeDataWithServer(this.state.text, this.props.threadID)
+                this.setState({
+                    text: "",
+                    status: "wysłane"
+                })
+            }
+            event.preventDefault();
+        }
+        render() {
+            return (
+                <div className="commentsForm">
+                    <form onSubmit={this.handleSubmit}>
+                        <textarea className="commentsTextarea" onChange={this.handleChange} value={this.state.text} />
+                        <input type="submit" className="commentsBtn" value="send" />
+                    </form>
+                    <div className="commentsInfo">status: <span className="commentsInfoHighlight">{this.state.status}</span></div>
+                    <div className="commentsInfo">data: <span className="commentsInfoHighlight">{this.state.text}</span></div>
+                </div>
+            )
+        }
+    }
+
+    class Comment extends React.Component {
+        render() {
+            return (
+                <div className="comment">
+                    {this.props.id},&nbsp;
+                    {this.props.text},&nbsp;
+                    {this.props.date}
+                </div>
+            )
+        }
+    }
+
+
+
+    ReactDOM.render(
+        <App />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

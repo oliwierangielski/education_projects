@@ -1,0 +1,51 @@
+<div class="formContainer">
+    <h3>Dane pojazdu:</h3>
+    <form action="/handle02" method="get">
+        <div>
+            <div class="rowContainer">
+                <div class="labelContainer flex">
+                    <label for="insurance">ubezpieczony:</label>
+                </div>
+                <div class="checkboxContainer flex">
+                    <input type="hidden" name="insurance" value="NIE">
+                    <input type="checkbox" name="insurance" id="insurance" value="TAK">
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class="rowContainer">
+                <div class="labelContainer flex">
+                    <label for="gasoline">benzyna:</label>
+                </div>
+                <div class="checkboxContainer flex">
+                    <input type="hidden" name="gasoline" value="NIE">
+                    <input type="checkbox" name="gasoline" id="gasoline" value="TAK">
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class="rowContainer">
+                <div class="labelContainer flex">
+                    <label for="damaged">uszkodzony:</label>
+                </div>
+                <div class="checkboxContainer flex">
+                    <input type="hidden" name="damaged" value="NIE">
+                    <input type="checkbox" name="damaged" id="damaged" value="TAK">
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class="rowContainer">
+                <div class="labelContainer flex">
+                    <label for="drive">napę 4x4:</label>
+                </div>
+                <div class="checkboxContainer flex">
+                    <input type="hidden" name="drive" value="NIE">
+                    <input type="checkbox" name="drive" id="drive" value="TAK">
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+
+            <div class="buttonContainer flex">
+                <input type="submit" value="DODAJ DO BAZY">
+            </div>
+        </div>
+    </form>
+</div>

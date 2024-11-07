@@ -1,0 +1,8 @@
+<div class="nameBar nameBarBlack">{{name}}</div>
+<div id="mainImageDiv" style="background-image:url('{{name}}');"></div>
+<div class="buttonsContainer">
+    <button class="button assideBtn minimalMarginBtn" onclick="createDialog('nowa nazwa pliku ', '/rename', 'right bottom', '{{name}}', '/showfile')">zmiana nazwy pliku</button>
+    <button class="button assideBtn minimalMarginBtn" onclick="updateImageChanges('{{name}}')">zapisz zmiany</button>
+    <button class="button assideBtn minimalMarginBtn filePreviewBtn" onclick="location.href='/previewFile?name={{name}}'" type="button">podgląd pliku</button>
+</div>
+<script type="text/javascript" src="js/showimage.js"></script>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 09: React state - time zones</h1>
+                    <a href="index09A.html" className={"zoneLink"}>powrót</a>
+                    <ZoneList />
+                </>
+            );
+        }
+    }
+
+    class ZoneList extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                data: [],
+                time: this.countUTCTime()
+            }
+            setInterval(() => {
+                this.setState({ time: this.countUTCTime() })
+            }, 1000)
+        }
+        countUTCTime() {
+            let t = new Date()
+            return new Date(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate(), t.getUTCHours(), t.getUTCMinutes(), t.getUTCSeconds())
+        }
+        componentDidMount() {
+            fetch('http://localhost:3000/')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then((json) => {
+                    this.setState({
+                        data: this.filterZones(json)
+                    })
+                });
+        }
+        filterZones = (json) => {
+            return json.reduce((filtered, data, index) => {
+                if (data?.isSelected == true)
+                    filtered.push(<Zone value={data.value} offset={data.offset} time={this.state.time} key={"zone" + index} />)
+                return (filtered)
+            }, [])
+        }
+        render() {
+            return (
+                <div className={"timerList"}>
+                    {this.state.data}
+                </div>
+            )
+        }
+    }
+
+    class Zone extends React.Component {
+        calculateLocalTime = () => {
+            let offsetTime = new Date(this.props.time.getTime() + this.props.offset * 3600000)
+            return (<div>
+                {offsetTime.getHours().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:
+                {offsetTime.getMinutes().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:
+                {offsetTime.getSeconds().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}
+            </div>)
+        }
+        render() {
+            return (
+                <div className={"timer"}>
+                    <div className={"timerZoneInfo"}>{this.props.value}</div>
+                    <div className={"timerDisplay"}>
+                        {this.calculateLocalTime()}
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    )
+</script>
+
+</html>

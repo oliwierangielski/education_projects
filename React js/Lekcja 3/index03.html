@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+<script type="text/babel">
+
+    class Start extends React.Component {
+        render() {
+            return (
+                <>
+                    <h1>cw 03: React forms - checkboxes</h1>
+                    <MyForm />
+                </>
+            );
+        }
+    }
+    class MyForm extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                array: [
+                    { checked: false, value: 1 },
+                    { checked: false, value: 2 },
+                    { checked: false, value: 3 },
+                    { checked: false, value: 10 },
+                    { checked: false, value: 20 },
+                ],
+                sum: 0
+            }
+        }
+        changeSum = (val) => {
+            this.setState({
+                sum: this.state.sum + val
+            })
+        }
+        onButtonClick = () => {
+            event.preventDefault();
+            alert("suma = " + this.state.sum)
+        }
+        render() {
+            return (
+                <div className="myForm">
+                    <div className="myFormTitle">MyForm</div>
+                    <form>
+                        {this.state.array.map((elem, index) => {
+                            return (<MyCheckbox checked={elem.checked} value={elem.value} key={index} changeSum={this.changeSum}/>)
+                        })}
+                        <div className="myFormSum">suma = {this.state.sum}$</div>
+                        <input type="submit" value="send" className="button" onClick={this.onButtonClick}/>
+                    </form>
+                </div>
+            );
+        }
+    }
+
+    class MyCheckbox extends React.Component {
+        constructor() {
+            super()
+            this.state = {
+                checked: false
+            }
+        }
+        componentDidMount = () => {
+            this.setState({
+                checked: this.props.checked
+            })
+        }
+        onChangeCheckbox = (event) => {
+            console.log(event.target.checked)
+            this.setState({
+                checked: event.target.checked
+            })
+            this.props.changeSum(((event.target.checked) ? 1 : -1) * event.target.value)
+        }
+        render() {
+            return (
+                <div className={"myCheckBox" + ((!this.state.checked) ? "" : " myCheckBoxActiv")} >
+                    <div className="checkboxHolder">
+                        <input type="checkbox" className="checkbox" value={this.props.value} checked={this.state.checked} onChange={this.onChangeCheckbox}/>
+                        <label className="label">{this.props.value} $</label>
+                    </div>
+                    <div className="myCheckboxTitle">
+                        MyCheckbox
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Start />,
+        document.getElementById('react-app')
+    );
+</script>
+
+</html>

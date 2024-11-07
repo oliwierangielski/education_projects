@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <h2>T: formularz - upload jednego pliku na serwer</h2>
+    <div class="container" style="background-color:darkcyan;">
+        <form enctype="multipart/form-data" method="POST" action="/handleUpload">
+            <div><label for="date">data: </label><input type="date" name="date" id="date"></div>
+            <div><label for="name">nazwa: </label><input type="text" name="name" id="name"></div>
+            <div><label for="file">zdjęcie: </label><input type="file" required accept="image/*" name="imagetoupload" id="file"></div>
+            <div><input type="submit" id="date" value="Submit"></div>
+        </form>
+    </div>
+</body>
+</html>

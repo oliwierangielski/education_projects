@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekcja 2 - Oliwier Angielski</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let value = window.prompt("Podaj nić DNA");
+
+        value = value.replace(/ /g,'')
+
+        document.write(value + "<br>");
+        value = value.toUpperCase();
+        let tryplety = [];
+
+        // Pętla dzieląca
+
+        
+
+        for(let i = 1; i <= value.length; i++){
+            if(i%3==0){
+                tryplety.push(value[i-3] + value[i-2] + value[i-1]);
+            }
+        }
+
+        
+
+        // Pętla wypisująca
+
+        let wynik;
+        for(let i = 0; i < tryplety.length; i++){
+            wynik = tryplety[i];
+            if(wynik == "ATG"){
+                document.write(wynik.bold().fontcolor("green"));
+            } else if (wynik == "TAA" | wynik == "TAG" | wynik == "TGA"){
+                document.write("<span style=\"background-color: yellow\">" + wynik + "</span>");
+            } else {
+                document.write(wynik);
+            }
+            document.write(" ");
+        }
+
+        document.write("<br>");
+
+        let odwrot = tryplety
+        let odwrotMale = "";
+        for(let i = 0; i < tryplety.length; i++){
+            odwrot[i].replaceAll("A", "X").replaceAll("T", "A").replaceAll("X", "T").replaceAll("C", "X").replaceAll("G", "C").replaceAll("X", "G");
+            document.write(odwrot[i] + " ");
+            odwrotMale += odwrot[i].toLowerCase();
+        }
+        
+
+
+        document.write("<br>" + odwrotMale + "<br>");
+
+        
+
+
+       
+
+        
+
+
+        // Przeliczanie trypletów
+
+        let tablicaDodanychTrypletow = [];
+        let tablicaLiczonychTrypletow = [];
+
+        for(let i = 0; i < tryplety.length; i++){
+            let index = tablicaDodanychTrypletow.findIndex(element => element == tryplety[i])
+            if(index == -1){
+                tablicaDodanychTrypletow.push(tryplety[i]);
+                tablicaLiczonychTrypletow.push([tryplety[i], 1]);
+            } else {
+                tablicaLiczonychTrypletow[index] = [tablicaLiczonychTrypletow[index][0], tablicaLiczonychTrypletow[index][1]+1];
+            }
+        }
+
+        
+
+        // Sortowanie trypletów
+       let wynikKoncowy = tablicaLiczonychTrypletow
+    // //ODKOMENTOWANIE TEJ LINIJKI POSORTUJE TABLICE
+    //    .sort(function (a, b){
+    //         if(a[0] > b[0]) {
+    //             return 1;
+    //         } else if (a[0] < b[0]){
+    //             return -1;
+    //         } else {
+    //             return 0;
+    //         }
+    //     })
+        .sort(function (a, b){
+            if(a[1] > b[1]) {
+                return -1;
+            } else if (a[1] < b[1]){
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        
+
+        // Wypisywanie trypletów
+
+        document.write("<div>");
+
+        let backgroundColor = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]
+        for(let i = 0; i < wynikKoncowy.length; i++){
+             if((i)%5==0){
+                backgroundColor = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]
+             }
+
+             document.write("<span style=\"background-color:rgba(" + backgroundColor[0] + "," + backgroundColor[1] + "," + backgroundColor[2] + ")\">" + wynikKoncowy[i][0] + " - " + wynikKoncowy[i][1] + "</span><br>");
+        }
+
+        document.write("</div> Odkomntowując kod w linijkach (80 - 89) posortujemy jeszcze bardziej tablice");
+
+        
+
+
+        
+    </script>
+</body>
+</html>

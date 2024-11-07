@@ -1,0 +1,48 @@
+<table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="pismo">
+      <th mat-header-cell *matHeaderCellDef>Pismo</th>
+      <td mat-cell *matCellDef="let magazine">
+        <mat-form-field class="example-full-width">
+            <mat-label>Plik miniaturki</mat-label>
+            <input matInput placeholder="superpismo.jpg" name="pismo" value="{{magazine?.pismo}}" (change)="updateForm($event, 'pismo', magazine?.pismo)">
+          </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="miniatura">
+        <th mat-header-cell *matHeaderCellDef>Miniatura</th>
+        <td mat-cell *matCellDef="let magazine">
+            <mat-form-field class="example-full-width">
+                <mat-label>Plik miniaturki</mat-label>
+                <input matInput placeholder="superpismo.jpg" name="miniaturka" value="{{magazine?.miniatura}}" (change)="updateForm($event, 'miniaturka', magazine?.pismo)">
+              </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lata">
+        <th mat-header-cell *matHeaderCellDef>Lata</th>
+        <td mat-cell *matCellDef="let magazine">
+            <mat-form-field>
+                <mat-label>Wybierz opcje</mat-label>
+                <mat-select multiple name="wybraneOpcje" [value]="magazine.lata" name="lata" (selectionChange)="updateForm($event, 'lata', magazine?.pismo)">
+                  <mat-option *ngFor="let option of options" [value]="option">{{ option }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="zatwierdz">
+        <th mat-header-cell *matHeaderCellDef>Zatwierdź</th>
+        <td mat-cell *matCellDef="let magazine"><button mat-raised-button color="primary">Zatwierdź</button></td>
+      </ng-container>
+
+      <ng-container matColumnDef="usun">
+        <th mat-header-cell *matHeaderCellDef>Usuń</th>
+        <td mat-cell *matCellDef="let magazine"><button mat-raised-button color="warn" (click)="delete(magazine)">Usuń</button></td>
+      </ng-container>
+
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  </table>

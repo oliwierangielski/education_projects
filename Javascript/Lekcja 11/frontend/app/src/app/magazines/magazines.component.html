@@ -1,0 +1,7 @@
+<p>Idealne zarobki na dalszą część zadania :)</p>
+<div class="imageContainer">
+<ng-container *ngFor="let magazine of magazines">
+    <a [routerLink]="magazine.name"><img [src]="getImage(magazine)" alt="obrazek" /></a>
+  </ng-container>
+</div>
+  

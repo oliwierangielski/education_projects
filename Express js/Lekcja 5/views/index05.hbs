@@ -1,0 +1,27 @@
+<h1 class="style2">{{ subject }}</h1>
+
+    {{#if noOptionTitle}}
+        <h3 class="style1">nie wybrano opcji radio</h3>
+    {{/if}}
+    {{#if selectedInfo}}
+        {{#each selectedInfo}}
+            <h3 class="style1">{{value}}</h3>
+        {{/each}}
+    {{/if}}
+
+
+{{#if fields}}
+    <form action="/handle05" method="get">
+        <div>
+                {{#each fields}}  
+                    <div class="inputHolder">
+                        <input type="radio" name="radio" value="{{name}}" id="{{name}}">
+                        <div style="color: blue;"><label for="{{name}}">{{name}}</label></div>
+                    </div>
+                {{/each}}
+        </div>
+        <div>
+            <input type="submit" value="wyślij">
+        </div>
+    </form>
+{{/if}}

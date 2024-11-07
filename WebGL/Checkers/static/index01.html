@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+    <title>Oliwier Angielski 4IB</title>
+    <style>
+        h1, h2{
+           font-family: Consolas,monospace
+        }
+        h2, pre{
+            font-size: 25px;
+            font-weight: bold;
+        }
+        #myIdInfo{
+            color: red;
+        }
+        #clientsIdInfo{
+            color: green;
+        }
+        #mousePosInfo{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>T: socket.io</h1>
+    <h2 id="myIdInfo">moje id = </h2>
+    <pre id="clientsIdInfo"></pre>
+    <pre id="mousePosInfo"></pre>
+    <script>
+        window.onload = function() {
+            const client = io()
+            client.on("onconnect", (data) => {
+                document.getElementById("myIdInfo").innerText = "moje id = " + data.clientId
+            })
+            client.on("onclientjoin", (data) => {
+                document.getElementById("clientsIdInfo").innerText = JSON.stringify(data, null, 3)
+            })
+            client.on("mouseposition", (data) => {
+                document.getElementById("mousePosInfo").innerText = JSON.stringify(data, null, 3)
+            })
+            window.onmousemove = (e) => {
+                client.emit("mouseposition", {
+                    posX: e.clientX,
+                    posY: e.clientY
+                })
+            }
+        }
+    </script>
+</body>
+</html>

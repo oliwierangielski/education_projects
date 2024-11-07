@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="stylesheet" href=".styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <script src=".libs/three145.js"></script>
+</head>
+
+<body>
+    <div class="headContainer">
+        <h1>05: światło typu Spot</h1>
+        <div class="controlMenu">
+            <div><input type="range" id="intensity" name="intensity" class="range" min="0" max="5" step="0.05" value="1" >&emsp;<label for="intensity" class="rangeLabel">intensity</label></div>
+            <div><input type="range" id="yPos" name="yPos" class="range" min="10" max="1000" step="1" value="600" >&emsp;<label for="yPos" class="rangeLabel">y pos</label></div>
+            <div><input type="range" id="targetRot" name="targetRot" class="range" min="-300" max="360" step="0.1" value="0" >&emsp;<label for="targetRot" class="rangeLabel">target rotation</label></div>
+            <div><input type="radio" id="sceneLT" name="lightTarget"><label for="sceneLT">scene</label></div>
+            <div><input type="radio" id="targetLT" name="lightTarget" checked><label for="sceneLT">target</label></div>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+        let light
+        let scene
+        let cube
+        document.getElementById("sceneLT").onclick = function() {
+            light.target = scene
+        }
+
+        document.getElementById("targetLT").onclick = function() {
+            light.target = cube
+        }
+        window.addEventListener("load", function () {
+
+            // Textura
+            const floorTexture = new THREE.TextureLoader().load( ".mats/tekstura_podloze.png" );
+            floorTexture.wrapS = THREE.RepeatWrapping;
+            floorTexture.wrapT = THREE.RepeatWrapping;
+            floorTexture.repeat.set( 10, 10 );
+            
+
+            //Materiały
+            const floorMaterial = new THREE.MeshPhongMaterial({
+                color: 0xffffff,
+                specular: 0xffffff,
+                emissive: 0x000000,
+                shininess: 50,
+                side: THREE.DoubleSide,
+                map: floorTexture
+            })
+
+            const cubeMaterial = new THREE.MeshPhongMaterial({
+                color: 0xffffff,
+                specular: 0xffffff,
+                emissive: 0x000000,
+                shininess: 50,
+                side: THREE.DoubleSide,
+                map: new THREE.TextureLoader().load( ".mats/tekstura.jpg" )
+            })
+
+
+            // scena 3D
+            scene = new THREE.Scene();
+            const axes = new THREE.AxesHelper(1000)
+            scene.add(axes)
+
+            // Podłoga
+            const planeGeometry = new THREE.PlaneGeometry( 10000, 10000 );
+            const plane = new THREE.Mesh( planeGeometry, floorMaterial );
+            plane.rotation.x = Math.PI /2
+            plane.position.y = 0
+            scene.add( plane );
+
+
+            //Kostka
+            const cubeGeometry = new THREE.BoxGeometry(100, 100, 100);
+            cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+            cube.position.set(0, 100, 0)
+            scene.add(cube)
+
+
+
+            // Światło
+            const lightObj = new THREE.Object3D();
+            light = new THREE.SpotLight(0xffffff, 10, );
+            light.position.set(0, 0, 0)
+            light.target = cube
+            const lightGeometry = new THREE.SphereGeometry(8, 8, 8)
+            const lightMaterial = new THREE.MeshBasicMaterial({color: "blue", wireframe: true})
+            const lightSphere = new THREE.Mesh(lightGeometry, lightMaterial)
+            lightSphere.position.set(0, 0, 0)
+            lightObj.add(light, lightSphere);
+            scene.add(lightObj)
+
+            
+
+
+            //kamera perspektywiczna - przeczytaj dokładnie objaśnienia w komentarzach
+
+            const camera = new THREE.PerspectiveCamera(
+                100,    // kąt patrzenia kamery (FOV - field of view)
+                window.innerWidth / window.innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+                0.1,    // minimalna renderowana odległość
+                10000    // maksymalna renderowana odległość od kamery
+            );
+
+            // renderer wykorzystujący WebGL - działa stabilnie na wszystkich
+            // najnowszych przeglądarkach zarówno desktopowych jak mobilnych
+
+            const renderer = new THREE.WebGLRenderer();
+
+            // kolor tła sceny - uwaga na prefix 0x a nie #
+
+            renderer.setClearColor(0xffffff);
+
+            // ustal rozmiary renderowanego okna w px (szer, wys)
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // dodanie renderera do diva, który istnieje na scenie
+
+            document.getElementById("root").appendChild(renderer.domElement);
+
+
+            // lub
+
+            camera.position.set(400, 350, 400)
+
+            // nakierowanie kamery na punkt (0,0,0) w przestrzeni (zakładamy, że istnieje już scena)
+
+            camera.lookAt(scene.position);
+
+            // kluczowy element - animacja
+
+            function render() {
+
+
+                //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
+                //np zmieniająca się wartość rotacji obiektu
+
+                //mesh.rotation.y += 0.01;
+
+                //wykonywanie funkcji bez końca, ok 60 fps jeśli pozwala na to wydajność maszyny
+
+                requestAnimationFrame(render);
+
+                // potwierdzenie w konsoli, że render się wykonuje
+
+                console.log("render leci")
+                light.target.rotation.y = document.getElementById("targetRot").value
+                // console.log(document.getElementById("intensity").value)
+                light.intensity = document.getElementById("intensity").value
+
+                lightObj.position.y = document.getElementById("yPos").value
+
+                //ciągłe renderowanie / wyświetlanie widoku sceny naszą kamerą
+
+                renderer.render(scene, camera);
+            }
+
+            // na koniec jednokrotne wykonanie powyższej funkcji
+
+            render();
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<table>
+    <thead>
+        <tr>
+            <th>NAZWA</th>
+            <th>KATEGORIA</th>
+            <th>CENA</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each root}}
+            <tr>
+              <td>{{this.title}}</td>
+              <td>{{this.category}}</td>
+              <td class="price">{{priceConvert this.price}} $</td>  
+            </tr>
+            
+        {{/each}}
+    </tbody>
+</table>

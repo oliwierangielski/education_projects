@@ -1,0 +1,11 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+td {
+    text-align: center;
+    width: 150px;
+    border: 1px solid white;
+    color:white;
+    padding: 15px;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <script defer src="/js/chat.js"></script>
+    <link rel="stylesheet" href="/css/chat.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+</head>
+<body>
+    <dialog open id="dialog">
+        <div class="rightDialog">
+            <div><input type="text" id="loginInput" placeholder="login" class="dialogInput"></div>
+            <div><button id="button" class="dialogBtn">Zaloguj się</button></div>
+        </div>
+    </dialog>
+    <div class="messageApp">
+        <div class="messageWindow">
+            <div id="nicknameTitle"></div>
+            <div id="messageContainer"></div>
+        </div>
+        <div class="messageWritingBox">
+            <input type="text" id="msgText" class="textInput">
+            <button class="sendBtn" id="sendBtn">Wyślij</button>
+        </div>
+    </div>
+</body>
+</html>

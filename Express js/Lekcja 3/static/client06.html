@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <title>Oliwier Angielski 4IB</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+    <h2>ćwiczenie 05 - mouse move</h2>
+    <div class="blockContainer">
+        <div class="blockHolder">
+            <div class="blockHeader" id="blockHeader1">
+                pozycja
+            </div>
+            <div class="blockContent" id="blockContent1">
+
+            </div>
+        </div>
+        <div class="blockHolder">
+            <div class="blockHeader" id="blockHeader2">
+                opóźnienie
+            </div>
+            <div class="blockContent" id="blockContent2">
+
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+<script>
+    function createInfoCircle(x, y, text, background){
+        let infoCircle = document.createElement("div")
+        infoCircle.classList.add("infoShape")
+        infoCircle.innerText = text
+        infoCircle.style.background = background
+        infoCircle.style.left = `${x-45}px`
+        infoCircle.style.top = `${y-45}px`
+
+        return infoCircle
+    }
+
+
+    let blockContent1 = document.getElementById("blockContent1");
+    let blockContent2 = document.getElementById("blockContent2");
+    blockContent1.onmouseover = function(event){
+
+        // Od razu odpalamy timer
+
+        let time = 0
+        let timer = setInterval(function(){
+            time++
+        }, 1)
+
+
+        let bounds = blockContent1.getBoundingClientRect()
+        let x = Math.floor(event.clientX - bounds.left)
+        let y = Math.floor(event.clientY - bounds.top)
+        let posInfoCircle = createInfoCircle(x, y, `${x}\n${y}`, "red")
+        blockContent1.appendChild(posInfoCircle)
+        $.ajax({
+        url: "/post",
+        contentType: 'application/json',
+        data: JSON.stringify({
+            x: x,
+            y: y
+        }),
+        type: "POST",
+        success: function (data) {
+            //czytamy odesłane z serwera dane
+            clearInterval(timer)
+            let delInfoCircle = createInfoCircle(data.x, data.y, time, "black")
+            delInfoCircle.style.fontSize = "35px"
+            blockContent2.appendChild(delInfoCircle)
+        },
+        error: function (xhr, status, error) {
+            console.log('Error: ' + error.message);
+        },
+});
+    }
+</script>
+</body>
+</html>

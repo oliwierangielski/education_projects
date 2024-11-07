@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GZt-IB-wqs">
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Memory" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="DCT-qJ-q9q">
+                                <rect key="frame" x="321.5" y="496.5" width="125" height="32"/>
+                                <segments>
+                                    <segment title="Łatwy"/>
+                                    <segment title="Trudny"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eoq-dd-2cO">
+                                <rect key="frame" x="347.5" y="577.5" width="73" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Zagraj"/>
+                                <connections>
+                                    <segue destination="6sh-nl-B1p" kind="show" id="W4G-gM-Y7k"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <constraints>
+                            <constraint firstItem="DCT-qJ-q9q" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="69v-w9-P1z"/>
+                            <constraint firstItem="DCT-qJ-q9q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GKa-Dx-aa7"/>
+                            <constraint firstItem="Eoq-dd-2cO" firstAttribute="top" secondItem="DCT-qJ-q9q" secondAttribute="bottom" constant="50" id="M3m-rG-mrM"/>
+                            <constraint firstItem="Eoq-dd-2cO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fVD-jh-J3c"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z8A-ay-WWs"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="DCT-qJ-q9q" id="doW-NU-SJ8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1011" y="4"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="VZ1-8k-nVx">
+            <objects>
+                <navigationController id="GZt-IB-wqs" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hDh-1K-INA">
+                        <rect key="frame" x="0.0" y="20" width="768" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="SQC-Bg-drX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fVw-cy-Yg5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1677" y="4"/>
+        </scene>
+        <!--View Controller2-->
+        <scene sceneID="J6T-8U-fNP">
+            <objects>
+                <viewController id="6sh-nl-B1p" customClass="ViewController2" customModule="Memory" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bgD-ca-e9B">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="zPx-QV-M4H"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="EvL-YR-LXn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aFl-Vk-Psa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-273" y="4"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

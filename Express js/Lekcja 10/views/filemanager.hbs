@@ -1,0 +1,50 @@
+<div class="clickablePath">
+    {{{createClickablePath root}}}
+</div>
+<div>
+    {{#each directories}}
+        <a href="?name={{fitSubDirPath ../root}}{{this}}">
+        <div class="directoryHolder">
+            <div class="iconHolder">
+                <img src="/gfx/folder.png" class="directoryIcon" alt="directory">
+            </div>
+            <div class="assideHolder">
+                <div class="descriptionHolder">
+                    {{shortTitle this}}
+                </div>
+                <div class="deleteHolder">
+                    <form method="post" action="/delete">
+                        <input type="hidden" name="name" value="{{this}}">
+                        <input type="hidden" name="root" value="{{../root}}">
+                        <button type="submit" class="deleteButton" onclick="return confirm('Czy na pewno chcesz usunąć ten folder?')"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </a>
+    {{/each}} 
+</div>
+<div>
+    {{#each files}}
+        <a href="/showfile?name={{fitSubDirPath ../root}}{{this}}">
+        <div class="fileHolder">
+            <div class="iconHolder">
+                <img src="/gfx/file.png" class="fileIcon" alt="file">
+            </div>
+            <div class="assideHolder">
+                <div class="descriptionHolder">
+                    {{shortTitle this}}
+                </div>
+                <div class="deleteHolder">
+                    <form method="post" action="/delete">
+                        <input type="hidden" name="name" value="{{this}}">
+                        <input type="hidden" name="root" value="{{../root}}">
+                        <button type="submit" class="deleteButton" onclick="return confirm('Czy na pewno chcesz usunąć ten plik?')"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </a>
+    {{/each}} 
+</div>
+

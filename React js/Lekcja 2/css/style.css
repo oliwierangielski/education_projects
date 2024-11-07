@@ -1,0 +1,144 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Consolas,monospace
+}
+
+h1{
+    color: red;
+}
+
+.squareContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.square{
+    box-sizing: border-box;
+    width: 300px;
+    height: 300px;
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 20px;
+}
+
+.squareBtn {
+    width: 100px;
+    font-size: 30px;
+    padding: 5px;
+    color: blue;
+}
+
+.square > h1{
+    color: white;
+}
+
+.foodList{
+    width: 100%;
+    padding: 20px;
+    border: 5px solid blue;
+    color: blue;
+}
+
+.foodBtn{
+    font-size: 20px;
+    padding: 5px;
+    color: blue;
+    border: 2px solid black;
+    border-radius: 3px;
+}
+
+.foodHolder{
+    width: 250px;
+    height: 250px;
+    background-color: blue;
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.foodIndex{
+    font-weight: bold;
+    padding: 5px;
+    font-size: 35px;
+}
+
+.foodImage{
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+}
+
+.colorDivContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.colorDiv{
+    width: 200px;
+    height: 200px;
+    font-size: 25px;
+    padding: 10px;
+    margin: 10px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.colorDivBtn{
+    color: blue;
+    font-size: 25px;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.timerList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.timer{
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.timerDisplay{
+    font-size: 35px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.zoneLink{
+    font-size: 30px;
+    color: blue;
+    font-weight: bold;
+    border: 3px solid blue;
+}
+
+.timerZoneInfo{
+    width: 80px;
+    height: 80px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.activeTimer{
+    background-color: #adff30;
+    color: black;
+}

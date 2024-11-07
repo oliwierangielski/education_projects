@@ -1,0 +1,104 @@
+@font-face {
+    font-family: HennyPenny;
+    src: url(assets/fonts/HennyPenny-Regular.ttf);
+}
+
+*{
+    font-family: HennyPenny;
+    text-align: center;
+}
+
+.submitBtn{
+    border-radius: 20px;
+    border: 1px solid #000;
+    background-color: white;
+    width: 100px;
+    height: 35px;
+}
+
+.labelSpace{
+    margin: 10px;
+}
+
+.inputHolder{
+    width: 45px;
+    font-size: 20px;
+}
+
+.alertDiv{
+    background-color: lightcoral;
+    color: white;
+    font-size: 17px;
+    padding: 15px;
+}
+
+.alertContainer{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 15px;
+}
+
+.mapContainer{
+    display: flex;
+    justify-content: center;
+}
+
+td{
+    width: 30px;
+    height: 30px;
+    background-color: silver;
+    font-size: 17px;
+    padding: 1px;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+.bomb{
+    background-color: white;
+    background-image: url("assets/images/bomb.png");
+    background-position: center;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+}
+
+.flag{
+    background-image: url("assets/images/flag.png");
+    background-position: center;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+}
+
+.scoresContainer{
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 15px;
+}
+
+.gameTypeElements{
+    text-align: center;
+    color: cornflowerblue;
+    list-style-type: none;
+    background-color: azure;
+    width: 200px;
+}
+
+.playerElements{
+    text-align: center;
+    color: gray;
+    list-style-type: none;
+    background-color: antiquewhite;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+ul{
+    margin-left: 0;
+    padding-left: 0;
+}
+
+
+

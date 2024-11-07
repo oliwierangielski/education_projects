@@ -1,0 +1,15 @@
+#app-game{
+    position: relative;
+}
+
+
+.gameTable{
+    position: absolute;
+    border-collapse: collapse;
+}
+
+.gameTableCell{
+    /* border: 1px solid black; */
+    /* width: 30px;
+    height: 30px; */
+}

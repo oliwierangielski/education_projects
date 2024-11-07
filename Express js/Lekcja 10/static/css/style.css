@@ -1,0 +1,513 @@
+@font-face{
+    font-family: TheSansMono_SemiBold;
+    src: url(../fonts/TheSansMono-SemiBold.otf)
+}
+
+@font-face{
+    font-family: TheSansMono_Plain;
+    src: url(../fonts/TheSansMono-Plain.otf)
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: TheSansMono_SemiBold;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+ nav{
+    width: 100%;
+    background-image: url("../gfx/background.jpg");
+    background-size: cover;
+    background-position: left bottom;
+    font-size: 25px;
+    display: flex;
+    flex: 1;
+    
+    align-items: center;
+}
+
+.navList a {
+    color: white;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.navList li{
+    float: left;
+    margin: 10px;
+    list-style-type: none;
+}
+
+.navList li:first-child{
+    margin-left: 50px;
+}
+
+asside{
+    box-sizing: border-box;
+    /* flex: 20%; */
+    /* width: 300px; */
+    background-color: lightgrey;
+    color: gray;
+    text-align: center;
+    font-size: 22px;
+}
+
+.flex-row{
+    flex: 11;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-column{
+    flex-direction: column;
+}
+
+main{
+    /* display: flex; */
+    flex: 1;
+    /* flex: 80%; */
+}
+.assideBtn{
+    width: 270px;
+}
+.button{
+    height: 65px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px;
+    margin: 15px;
+    background-color: #ffe141;
+    color: #444745;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: #d8c036;
+}
+
+.fileInputHolder, .styleBtnHolder{
+    width: 90%;
+    height: 65px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.fileInput{
+    display: none;
+}
+
+.fileLabel{
+    width: 75%;
+    height: 100%;
+    display: block;
+    background-color: #ffe141;
+    float: left;
+    border-radius: 10px 0px 0px 10px;
+    cursor: pointer;
+}
+
+.fileLabel:hover{
+    background-color: #d8c036;
+}
+
+.fileLabel:active{
+    background-color: #f6961b;
+}
+
+.fileInputBtn{
+    width: 25%;
+    height: 100%;
+    display: block;
+    background-color: #4f4fbd;
+    color: white;
+    float: left;
+    border: none;
+    font-size: 20px;
+    border-radius: 0px 10px 10px 0px;
+    cursor: pointer;
+}
+
+.fileInputBtn:hover {
+    background-color: #33338f;
+}
+
+.fileInputImgHolder{
+    width: 33%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6961b;
+    border-radius: 10px 0px 0px 10px;
+    float: left;
+}
+
+.fileInputImg{
+    width: 48px;
+    height: 48px;
+    
+}
+
+.fileInputDescription{
+    width: 67%;
+    height: 100%;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-weight: bold;
+    color: #444745;
+}
+
+.blurscreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1b;
+    opacity: 0.2;
+}
+
+.dialog{
+    position: absolute;
+    width: 600px;
+    height: 250px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("../gfx/background.jpg");
+    background-size: cover;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.699);
+    color: white;
+    font-size: 22px;
+}
+
+
+.dialogDescription{
+    padding: 15px;
+    margin-top: 30px;
+}
+
+.dialogInput{
+    font-size: 30px;
+    display: block;
+    margin-top: 20px;
+}
+
+.buttonsHolder{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
+}
+
+.directoryHolder{
+    position: relative;
+    width: 135px;
+    height: 150px;
+    margin: 10px -10px 0px 10px;
+    background-image: url("../gfx/background.jpg");
+    background-size: cover;
+    background-position: right bottom;
+    display: inline-block;
+    color: white;
+    padding-top: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.fileHolder{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 10px -10px 0px 10px;
+    background-image: url("../gfx/background.jpg");
+    background-size: cover;
+    background-position: left top;
+    display: inline-block;
+    color: white;
+    padding-top: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.iconHolder{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.directoryIcon{
+    width: 80px;
+    height: 80px;
+}
+
+.fileIcon{
+    width: 88.4px;
+    height: 88.4px;
+}
+
+.assideHolder{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4f4fbd;
+    overflow: hidden;
+    border-radius: 0px 0px 10px 10px
+}
+
+.descriptionHolder{
+    width: 0px;
+    height: 100%;
+    padding: 5px;
+    float: left;
+}
+
+.deleteHolder{
+    height: 100%;
+    float: left;
+}
+
+.deleteButton{
+    width: 30px;
+    height: 30px;
+    background-image: url("../gfx/delete.png");
+    background-size: cover;
+    border-radius: 0px 0px 10px 0px;
+    border:none;
+    background-color:transparent;
+    outline:none;
+    cursor: pointer;
+}
+
+.clickablePath{
+    margin: 15px;
+}
+
+.nameBar{
+    width: 100%;
+    background-color: #444444;
+    color: white;
+    font-size: 21px;
+    padding: 6px;
+}
+
+.nameBarBlack{
+    background-color: #222222;
+}
+
+.nameBarPurple{
+    background-color: #88085d;
+}
+
+.textEdiorHolder{
+    display: flex;
+    width: 100%;
+    height: 760px;
+    overflow-y: scroll;
+}
+
+.textEditor{
+    width: 100%;
+    border: none;
+    resize: none;
+    height: max-content;
+    padding: 0px!important;
+    margin: 0!important;
+    min-height: 100%;
+    border-left: 7px solid rgb(22, 235, 50);
+    background-color: rgba(0,0,0,0);
+    tab-size: 3;
+}
+
+.textEditor:focus{
+    outline: 0;
+}
+
+#lineNumerationBar{
+    box-sizing: border-box;
+    width: 70px;
+    color: rgb(8, 179, 247);
+    text-align: right;
+    float: left;
+    padding: 0px!important;
+    margin-right: 10px;
+}
+
+.styleBtn{
+    width: 33%;
+    height: 100%;
+    border: none;
+    float:left;
+    font-weight: bold;
+    color: #444745;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.filterBtn{
+    /* margin: 0; */
+    width: 90px;
+}
+
+.styleBtnLeft{
+    background-color: #ffe141;
+    border-radius: 10px 0 0 10px;
+}
+
+.styleBtnLeft:hover{
+    background-color: #d8c036;
+}
+
+.styleBtnCenter{
+    width: 34%;
+    background-color: #ffb441;
+}
+
+.styleBtnCenter:hover{
+    background-color: #e49826;
+}
+
+.styleBtnRight{
+    background-color: #ff9900;
+    border-radius: 0 10px 10px 0;
+}
+
+.styleBtnRight:hover{
+    background-color: #b3771d;
+}
+
+.filePreviewBtn{
+    background-color: #4f4fbd;
+    color: white;
+    text-decoration: underline;
+}
+
+.filePreviewBtn:hover{
+    background-color: #33338f;
+}
+
+.halfAsside{
+    float: left;
+    width: 175px;
+}
+
+#panel{
+    width: 0px;
+    height: 100%;
+    transition: width 1s;
+    float: left;
+    background-color: #222222;
+    overflow: hidden;
+    color: white;
+    font-size: 18px;
+}
+
+.filterTitle{
+    margin: 25px;
+}
+
+.filterPreview{
+    background-size: cover;
+    border-radius: 10px;
+    width: 85px;
+    height: 85px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.filterPreview:hover{
+    background-color: #1a1a1b;
+    opacity: 0.4;
+}
+
+#mainImageDiv{
+    width: 600px;
+    height: 600px;
+    margin: 15px auto 15px auto;
+    border: 4px dashed white;
+    background-size: cover;
+}
+
+.minimalMarginBtn{
+    margin: 0px!important;
+}
+
+.buttonsContainer{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.startingHeader{
+    text-align: center;
+    padding: 30px;
+}
+
+.pageBtnsHolder{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pageBtn{
+    background-color: #1a1a1b;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.startingFormContainer{
+    margin-top: 40px;
+}
+
+.startingFormInput{
+    font-family: TheSansMono_SemiBold;
+    width: 400px;
+    height: 50px;
+    font-size: 15px;
+    margin: 0 auto 30px auto;
+    display: block;
+    border-radius: 10px;
+    border: 2px solid gray;
+    padding: 15px;
+}
+
+.startingPageNameTitle{
+    text-align: center;
+    font-size: 100px;
+    color:#9295e9;
+}
+
+.errorInfo{
+    color: red;
+}
+
+.logoutBtn{
+    width: 300px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 2px solid gray;
+    cursor: pointer;
+}

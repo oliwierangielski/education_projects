@@ -1,0 +1,29 @@
+table, th, td{
+    border: 1px solid black;
+    background-color: lightgray;
+}
+th{
+    background-color: yellow;
+}
+td{
+    background-color: lightgray;
+}
+
+label, .price{
+    color: blue;
+}
+
+.product{
+    text-align: center;
+    background-color: lightgray;
+}
+
+.product-block{
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+}
+
+.redTitle{
+    color: red;
+}

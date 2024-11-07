@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="stylesheet" href=".styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <script src=".libs/three145.js"></script>
+</head>
+
+<body>
+    <div class="headContainer">
+        <h1>03: utwórz 4 różne bryły po kliknięciu w btn - patrz dokumentacja</h1>
+        <div class="controlMenu">
+            <button class="cubeButton" id="cubeBtn" onClick="operateOnWebGLEElement(this.id)">SZEŚCIAN</button>
+            <button class="sphereButton" id="sphereBtn" onClick="operateOnWebGLEElement(this.id)">KULA</button>
+            <button class="cylinderButton" id="cylinderBtn" onClick="operateOnWebGLEElement(this.id)">WALEC</button>
+            <button class="coneButton" id="coneBtn" onClick="operateOnWebGLEElement(this.id)">STOŻEK</button>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+
+    
+
+        let scene
+        let cube
+        let sphere
+        let cylinder
+        let cone
+        function operateOnWebGLEElement(elementID){
+            let geometry
+            let material
+            let button = document.getElementById(elementID)
+            //button.style.background = "#ff6666"
+            switch(elementID){
+                case "cubeBtn":
+                    if(button.innerText != "USUŃ"){
+                        geometry = new THREE.BoxGeometry(30,30,30, 5,5,5)
+                        material = new THREE.MeshBasicMaterial({color: "red", wireframe: true})
+                        cube = new THREE.Mesh(geometry, material)
+                        scene.add(cube)
+                        button.innerText = "USUŃ"
+                        button.classList.add("deleteBtn")
+                    } else {
+                        scene.remove(cube)
+                        button.innerText = "SZEŚCIAN"
+                        button.classList.remove("deleteBtn")
+                    }
+                    
+                break
+                case "sphereBtn":
+                    if(button.innerText != "USUŃ"){
+                        geometry = new THREE.SphereGeometry(15, 15, 15)
+                        material = new THREE.MeshBasicMaterial({color: "blue", wireframe: true})
+                        sphere = new THREE.Mesh(geometry, material)
+                        scene.add(sphere)
+                        button.innerText = "USUŃ"
+                        button.classList.add("deleteBtn")
+                    } else {
+                        scene.remove(sphere)
+                        button.innerText = "KULA"
+                        button.classList.remove("deleteBtn")
+                    }
+                break
+                case "cylinderBtn":
+                    if(button.innerText != "USUŃ"){
+                        geometry = new THREE.CylinderGeometry(20, 20, 20, 12, 10)
+                        material = new THREE.MeshBasicMaterial({color: "green", wireframe: true})
+                        cylinder = new THREE.Mesh(geometry, material)
+                        scene.add(cylinder)
+                        button.innerText = "USUŃ"
+                        button.classList.add("deleteBtn")
+                    } else {
+                        scene.remove(cylinder)
+                        button.innerText = "WALEC"
+                        button.classList.remove("deleteBtn")
+                    }
+                break
+                case "coneBtn":
+                    if(button.innerText != "USUŃ"){
+                        geometry = new THREE.ConeGeometry(15, 30, 15, 4)
+                        material = new THREE.MeshBasicMaterial({color: "pink", wireframe: true})
+                        cone = new THREE.Mesh(geometry, material)
+                        scene.add(cone)
+                        button.innerText = "USUŃ"
+                        button.classList.add("deleteBtn")
+                    } else {
+                        scene.remove(cone)
+                        button.innerText = "STOŻEK"
+                        button.classList.remove("deleteBtn")
+                    }
+                break
+                
+            }
+        }
+
+
+        window.addEventListener("load", function () {
+            // scena 3D
+            scene = new THREE.Scene();
+            const axes = new THREE.AxesHelper(1000)
+            scene.add(axes)
+
+            
+            //kamera perspektywiczna - przeczytaj dokładnie objaśnienia w komentarzach
+
+            const camera = new THREE.PerspectiveCamera(
+                45,    // kąt patrzenia kamery (FOV - field of view)
+                window.innerWidth / window.innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+                0.1,    // minimalna renderowana odległość
+                10000    // maksymalna renderowana odległość od kamery
+            );
+
+            // renderer wykorzystujący WebGL - działa stabilnie na wszystkich
+            // najnowszych przeglądarkach zarówno desktopowych jak mobilnych
+
+            const renderer = new THREE.WebGLRenderer();
+
+            // kolor tła sceny - uwaga na prefix 0x a nie #
+
+            renderer.setClearColor(0xffffff);
+
+            // ustal rozmiary renderowanego okna w px (szer, wys)
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // dodanie renderera do diva, który istnieje na scenie
+
+            document.getElementById("root").appendChild(renderer.domElement);
+
+
+            camera.position.set(100, 100, 100)
+
+            // nakierowanie kamery na punkt (0,0,0) w przestrzeni (zakładamy, że istnieje już scena)
+
+            camera.lookAt(scene.position);
+
+            // kluczowy element - animacja
+
+
+            
+
+            function render() {
+
+                
+                //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
+                //np zmieniająca się wartość rotacji obiektu
+
+                //mesh.rotation.y += 0.01;
+
+                //wykonywanie funkcji bez końca, ok 60 fps jeśli pozwala na to wydajność maszyny
+
+                requestAnimationFrame(render);
+
+                // potwierdzenie w konsoli, że render się wykonuje
+
+                console.log("render leci")
+                if(cube)
+                    cube.rotation.y += 0.01
+                if(sphere)
+                    sphere.rotation.y += 0.02
+                if(cylinder)
+                    cylinder.rotation.y += 0.021
+                if(cone)
+                    cone.rotation.y += 0.05
+
+                //finalShape.rotation.x += 0.01
+
+                //ciągłe renderowanie / wyświetlanie widoku sceny naszą kamerą
+
+                renderer.render(scene, camera);
+            }
+
+            // na koniec jednokrotne wykonanie powyższej funkcji
+
+            render();
+        })
+
+        
+    </script>
+</body>
+
+</html>

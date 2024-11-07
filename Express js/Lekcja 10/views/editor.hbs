@@ -1,0 +1,12 @@
+<div class="nameBar">{{name}}</div>
+<form action="/updateFile" method="post" style="height:100%">
+<div class="textEdiorHolder">
+    <div id="lineNumerationBar"></div>
+    <input type="hidden" name="name" value="{{name}}">
+    <textarea id="textEditor" class="textEditor" name="data" spellcheck="false">{{data}}</textarea>
+</div>
+<div>
+    <input type="submit" value="zapisz zmiany" class="button assideBtn">
+</div>
+</form>
+<script type="text/javascript" src="js/showfile.js"></script>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="charset" content="Oliwier Angielski 4IB">
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <style>
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .opinionList {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .opinion {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="react-app"></div>
+    <script type="text/babel">
+        class Start extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    arr:
+                        [
+                            {
+                                zgodnosc: 0,
+                                czas: 5,
+                                koszt: 3,
+                                obsluga: 3
+                            }
+                        ]
+                }
+
+            }
+            render() {
+                return (
+                    <>
+                        <h1>01: JSX Component - simple</h1>
+                        <OpinionList arr={this.state.arr} />
+                    </>
+                );
+            }
+        }
+
+        class OpinionList extends React.Component {
+            constructor() {
+                super()
+            }
+
+            render() {
+                return (
+                    <div>
+                        {this.props.arr.map((elem, index) => {
+                            return (
+                                <div key={index} className="opinionList">
+                                    <Opinion ocena={elem.zgodnosc} title="zgodność" />
+                                    <Opinion ocena={elem.czas} title="czas" />
+                                    <Opinion ocena={elem.koszt} title="ocena" />
+                                    <Opinion ocena={elem.obsluga} title="obsluga" />
+                                </div>
+                            )
+                        })}
+                    </div>
+                )
+            }
+        }
+
+        class Opinion extends React.Component {
+            constructor() {
+                super()
+            }
+            onStarClick() {
+
+            }
+            generateStars() {
+                let stars = []
+                for (let i = 1; i <= 5; i++) {
+                    let img
+                    if (i <= parseInt(this.props.ocena)) {
+                        img = "stary.png"
+                    } else {
+                        img = "star.png"
+                    }
+                    stars.push(<img src={img} key={i} onClick={this.onStarClick} />)
+
+                }
+                return stars
+            }
+            render() {
+                return (
+                    <div className="opinion">
+                        <div>{this.props.title}</div>
+                        <div>{this.generateStars()}</div>
+                    </div>
+                )
+            }
+        }
+
+        class Star extends React.Component {
+            constructor() {
+                super()
+            }
+
+        }
+
+        ReactDOM.render(
+            <Start />,
+            document.getElementById('react-app')
+        );
+    </script>
+</body>
+
+</html>

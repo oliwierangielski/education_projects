@@ -1,0 +1,312 @@
+<!-- https://mendela.pl/ap_kli/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekcja 1 - Oliwier Angielski</title>
+    <style>
+
+        table {
+            border: none;
+        }
+
+        td, th{
+            text-align: center;
+            width: 30px;
+            border: 1px solid white;
+        }
+
+        th {
+            background-color: rgba(47, 96, 231, 0.822);
+            color: white;
+        }
+
+        td {
+            background-color: gold;
+            color: rgba(36, 35, 35, 0.842);
+        }
+
+
+    </style>
+</head>
+<body>
+    <script>
+        document.write("<h1>Zadanie 1</h1><br>");
+
+        document.write("<b>Witaj JavaScript</b><hr><br>");
+
+        for(let i = -22; i < 22; i++){
+            document.write(i + "<br>")
+        }
+
+        document.write("<hr><br>")
+
+        for (let i = 55; i > -15; i -=5){
+            document.write(i + " ")
+        }
+
+        document.write("<hr><br>")
+
+        for(let i = 40; i >= 10; i--){
+            if(i <= 15 | i >= 25){
+                document.write(i + " ")
+            }
+        }
+
+        document.write("<hr><br><br>")
+        
+        console.log("Zadanie 2.1");
+        for(let i = -40; i < 40; i++){
+            if (i < 3 | i >= 30 ){
+                if(i%2!=0){
+                    console.log(i)
+                }
+            }
+        }
+
+
+        console.log("Zadanie 2.2")
+        for (let i = -20; i < 20; i++){
+            if (i <= 5 | i >= 10){
+                if(i%2==0){
+                    console.log(i)
+                }
+            }
+        }
+
+
+        console.log("Zadanie 2.3")
+        for (let i = -100; i < 41; i++){
+            if( i <= -28 | i >= 14){
+                if(i%7==0){
+                    console.log(i)
+                }
+            }
+        }
+
+
+
+        document.write("<h1>Zadanie 3</h1><br>")
+        
+        let value = window.prompt("Podaj wartość")
+
+        value = Math.round(value);
+
+        // Pętla X
+
+        for (let i = 1; i <= value; i++){
+            document.write("X")
+        }
+
+        document.write("<hr><br><br>")
+
+        
+        // Kwadrat X
+        
+
+        document.write("<pre>")
+        for(let i = 1; i <= value; i++){
+            for(let y =1; y <= value; y++){
+                if(i == 1 | i == value | y == 1 | y == value){
+                    document.write("X&nbsp;")
+                } else {
+                    document.write("&nbsp;&nbsp;")
+                }
+                
+            }
+            document.write("<br>")
+        }
+
+        document.write("</pre><hr><br><br>")
+
+        
+
+        // Trójkąt X
+
+        document.write("<pre>")
+        for(let i = 1; i <= value; i++){
+            for(let z = i+1; z<= value; z++){
+                    document.write("&nbsp;&nbsp;")
+                }
+            for(let y = 1; y <= i; y++){
+                if(y == 1 | y == i | i == value){
+                    document.write("X&nbsp;")
+                } else {
+                    document.write("&nbsp;&nbsp;")
+                }
+                
+            }
+            document.write("<br>")
+        }
+
+
+        document.write("</pre><hr><br><br>")
+
+
+        //Trójkąt prawo opadający
+
+        for(let i = 1; i <= value; i++){
+            for(let y = 1; y <= i; y++){
+                document.write(y)
+            }
+            document.write("<br>")
+        }
+
+        document.write("<hr><br><br>")
+
+        // Trójkąt równoramienny
+
+        document.write("Bonus<br><br>");
+
+        for(let i = 1; i <= value; i++){
+            for(let z = i+1; z<= value; z++){
+                    document.write("&nbsp;")
+                }
+            for(let y = 1; y <= i; y++){
+                document.write(y)
+            }
+            document.write("<br>")
+        }
+
+        document.write("<hr><br><br>")
+
+        // Trójkąt lewo opadający
+
+        for(let i = 1; i <= value; i++){
+            for(let z = i+1; z<= value; z++){
+                    document.write("&nbsp;&nbsp;")
+                }
+            for(let y = i; y >= 1; y--){
+                document.write(y)
+            }
+            document.write("<br>")
+        }
+
+        document.write("<hr><br><br>")
+
+        // Silnia
+
+        var silnia = 1;
+        for(let i = 1; i <= value; i++){
+            silnia *= i;
+        }
+        document.write(value + "! = " + silnia)
+
+         document.write("<hr><br><br>")
+
+        // Suma liczb parzystych
+
+        var suma = 0;
+        for(let i = 0; i <= value; i++){
+            if(i%2==0 & i != 0){
+                suma += i;
+            }
+        }
+
+        document.write(suma);
+
+        document.write("<hr><br><br>")
+
+       
+        var czyPierwsza;
+
+        let valuePos = value;
+        if(valuePos < 0){
+            valuePos *= -1;
+        }
+
+        for(let i = 2; i < valuePos; i++){
+
+
+            if(valuePos == 2){
+                czyPierwsza = "Pierwsza"
+            } else if (valuePos == 1 | valuePos == 0){
+                czyPierwsza = "Nie Pierwsza"
+            }
+
+            if(valuePos%i==0){
+                czyPierwsza = "Nie pierwsza";
+                break;
+            }
+            czyPierwsza = "pierwsza";
+        }
+
+        window.alert(czyPierwsza);
+
+        document.write("<table cellspacing=\"0\" cellpadding=\"0\">");
+        for(let i =0; i <= 20; i++){
+
+            document.write("<tr>");
+            for(let y = 0; y <= 20; y++){
+                
+                if (i == 0){
+                    document.write("<th>" + y + "</th>")
+                } else if(y == 0 ){
+                    document.write("<th>" + i + "</th>");
+                } else {
+                    if(i == y){
+                        document.write("<td style=\"background-color: white;\">" + y * i + "</td>");
+                    } else {
+                        document.write("<td>" + y * i + "</td>");
+                    }
+                    
+                    
+                }
+
+            }
+            document.write("</tr>");
+        }
+
+        document.write("</table>")
+
+        document.write("<hr><br><br><h1>Zadanie 4</h1><br>")
+
+
+        let regon = window.prompt("Podaj numer REGON");
+        let sumaRegon = 0;
+        
+        if(regon.length == 9){
+            let wagiRegon = [8, 9, 2, 3, 4, 5, 6, 7];
+            for(let i = 1; i <= 8; i++){
+                sumaRegon += (regon[i-1] * wagiRegon[i-1]);
+            }
+
+            if(sumaRegon%11== regon[8]){
+                document.write("Poprawny numer REGON");
+                window.alert("Poprawny numer REGON");
+            } else {
+                document.write("Nie poprawny numer REGON");
+                window.alert("Nie poprawny numer REGON");
+            }
+
+            //document.write(sumaRegon);
+
+        } else if (regon.length == 14){
+            let wagiRegon = [ 2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8];
+            for(let i = 1; i <= 13; i++){
+                sumaRegon += (regon[i-1] * wagiRegon[i-1]);
+            }
+
+            if(sumaRegon%11==regon[13]){
+                document.write("Poprawny numer REGON");
+                window.alert("Poprawny numer REGON");
+            } else {
+                document.write("Nie poprawny numer REGON");
+                window.alert("Nie poprawny numer REGON");
+            }
+
+            document.write(sumaRegon);
+
+        } else {
+            document.write("Numer REGON musi składać się z 9 lub 14 znaków");
+            window.confirm("Numer REGON musi składać się z 9 lub 14 znaków");
+        }
+        
+
+
+    </script>
+</body>
+</html>

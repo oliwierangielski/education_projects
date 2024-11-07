@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oliwier Angielski 4IB">
+    <link rel="stylesheet" href=".styles/style.css" type="text/css">
+    <title>Oliwier Angielski 4IB</title>
+    <script src=".libs/three145.js"></script>
+</head>
+
+<body>
+    <div class="headContainer">
+        <h1>08: raycaster, mysz, klawiatura</h1> 
+        <div class="rightCornerInfo">
+            <div id="modeInfo" class="modeInfo">Tryb: Kamera</div>
+            <div id="axInfo" class="axInfo"></div>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+        window.addEventListener("load", function () {
+            // scena 3D
+            const scene = new THREE.Scene();
+            const axes = new THREE.AxesHelper(1000)
+            const axes2 = new THREE.AxesHelper(-1000)
+            scene.add(axes, axes2)
+
+            // Tworzenie kostki
+            let materials = [];
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/a.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/b.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/c.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/d.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/e.png') }));
+            materials.push(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: new THREE.TextureLoader().load('.mats/f.png') }));
+            
+            let cubeWidth = 100
+            let cubeHeight = 100
+            let levels = 4
+            const geometry = new THREE.BoxGeometry(cubeWidth, cubeHeight, 100);
+
+            function createCube(x, y, z){
+                const cube = new THREE.Mesh(geometry, materials);
+                cube.position.set(x, y, z)
+                scene.add(cube)
+            }
+
+            for(let i = 0; i < levels; i++){
+                for(let y = 0; y < levels; y++){
+                    for(let z = 0; z < levels; z++){
+                        if(z == 0 ){
+                            if(i ==0 | i == 3 | y == 0 | y == 3)
+                                createCube(i*100 - 150, z*100, y * 100-150)
+                        } else if(z == 1){
+                            if(i == 0 & y < 3| y == 0 & i < 3)
+                                createCube(i*100 - 150, z*100, y * 100-150)
+                        } else if(z == 2){
+                            if(i == 0 & y < 2 | y == 0 & i < 2)
+                                createCube(i*100 - 150, z*100, y * 100-150)
+                        } else if(z == 3){
+                            if(i == 0 & y < 1 & y == 0 & i < 1)
+                                createCube(i*100 - 150, z*100, y * 100-150)
+                        }
+                    }
+                        
+                }
+            }
+            
+            
+
+            //kamera perspektywiczna - przeczytaj dokładnie objaśnienia w komentarzach
+
+            const camera = new THREE.PerspectiveCamera(
+                45,    // kąt patrzenia kamery (FOV - field of view)
+                window.innerWidth / window.innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+                0.1,    // minimalna renderowana odległość
+                10000    // maksymalna renderowana odległość od kamery
+            );
+
+            // renderer wykorzystujący WebGL - działa stabilnie na wszystkich
+            // najnowszych przeglądarkach zarówno desktopowych jak mobilnych
+
+            const renderer = new THREE.WebGLRenderer();
+
+            // kolor tła sceny - uwaga na prefix 0x a nie #
+
+            renderer.setClearColor(0xffffff);
+
+            // ustal rozmiary renderowanego okna w px (szer, wys)
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // dodanie renderera do diva, który istnieje na scenie
+
+            document.getElementById("root").appendChild(renderer.domElement);
+
+            let currentAngle = 45
+            camera.position.set(1000 * Math.sin(currentAngle * Math.PI/180), 1000, 1000 * Math.cos(currentAngle * Math.PI/180))
+
+            // nakierowanie kamery na punkt (0,0,0) w przestrzeni (zakładamy, że istnieje już scena)
+
+            camera.lookAt(scene.position);
+
+            // kluczowy element - animacja
+
+            let clickedElement
+            let mode = "camera"
+            const raycaster = new THREE.Raycaster(); // obiekt Raycastera symulujący "rzucanie" promieni
+            const mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie, a potem przeliczenia na pozycje 3D
+            
+            
+            // Ta funkcja czyści kolorowe krawędzie na sześcianie
+            function clearWireFrame(){
+                createCube(clickedElement.position.x, clickedElement.position.y, clickedElement.position.z)
+                console.log(scene.children.length)
+                scene.remove(clickedElement)
+                console.log(scene.children.length)
+                clickedElement = null
+            }
+            
+            
+            window.addEventListener("mousedown", (e) => {
+                mouseVector.x = (event.offsetX / window.innerWidth) * 2 - 1;
+                mouseVector.y = -(event.offsetY / window.innerHeight) * 2 + 1;
+                raycaster.setFromCamera(mouseVector, camera);
+                const intersects = raycaster.intersectObjects(scene.children);  
+                
+                if (intersects.length > 0) {
+                    if(intersects[0].object.type != "AxesHelper" & intersects[0].object.uuid != clickedElement?.uuid){
+                        if(clickedElement){    
+                            clearWireFrame()
+                        }
+
+                        clickedElement = intersects[0].object
+                        var geo = new THREE.EdgesGeometry(clickedElement.geometry)
+                        var mat = new THREE.LineBasicMaterial({color: 0xd400ff})
+                        var wireframe = new THREE.LineSegments(geo,mat)
+                        clickedElement.add(wireframe)
+                        changeModeInfo("block")
+                        console.log(clickedElement)
+                    }     
+                }
+            });
+
+            let key
+            let holdingKeyInterval
+            let isInterval = false
+            window.addEventListener("keydown", (e) => {
+                key = e.keyCode
+                console.log(key)
+                if(e.keyCode >= 37 & e.keyCode <= 40 | e.keyCode == 27 | e.keyCode == 88 | e.keyCode == 90){
+                    isInterval = true;
+                }
+            });
+
+            window.addEventListener("keyup", (e) => {
+                if(e.keyCode >= 37 & e.keyCode <= 40 | e.keyCode == 27 | e.keyCode == 88 | e.keyCode == 90){
+                    isInterval = false;
+                }
+                    
+            });
+
+
+            let modeInfo = document.getElementById("modeInfo");
+            let axInfo = document.getElementById("axInfo");
+            function changeModeInfo(newMode){
+                mode = newMode
+                if(mode == "camera"){
+                    modeInfo.innerText = "Tryb: Kamera"
+                    axInfo.style.opacity = 0
+                } else {
+                    modeInfo.innerText = "Tryb: Blok"
+                }
+
+                if(mode == "blockx"){
+                    axInfo.innerText = "Oś: X"
+                    axInfo.style.opacity = 1
+                } else if(mode == "blockz"){
+                    axInfo.innerText = "Oś: Z"
+                    axInfo.style.opacity = 1
+                }
+            }
+
+            function render() {
+
+                //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
+                //np zmieniająca się wartość rotacji obiektu
+
+                //mesh.rotation.y += 0.01;
+
+                //wykonywanie funkcji bez końca, ok 60 fps jeśli pozwala na to wydajność maszyny
+
+                requestAnimationFrame(render);
+
+                // potwierdzenie w konsoli, że render się wykonuje
+
+                // console.log("render leci")
+                
+                if(isInterval){
+                    switch (key) {
+                        case 27:
+                            // Escape
+                            if(mode != "camera"){
+                                changeModeInfo("camera")
+                                clearWireFrame()
+                            }
+                                
+                            break;
+                        case 37:
+                            // Strzałka w lewo
+                            if(mode == "camera"){
+                                currentAngle--
+                                camera.position.z = 1000 * Math.cos(currentAngle * Math.PI/180);
+                                camera.position.x = 1000 * Math.sin(currentAngle * Math.PI/180);
+                                camera.lookAt(scene.position);
+                            } else if(mode == "blockx"){
+                                clickedElement.position.x -= 10
+                            } else if(mode == "blockz"){
+                                clickedElement.position.z -= 10
+                            }
+                                
+                            break;
+                        case 38:
+                            // Strzałka w górę
+                                if(mode == "camera"){
+                                    camera.position.y += 10
+                                    camera.lookAt(scene.position);
+                                } else {
+                                    clickedElement.position.y += 10
+                                }          
+                            break;
+                        case 39:
+                            // Strzałka w prawo
+                            if(mode == "camera"){
+                                currentAngle++
+                                camera.position.z = 1000 * Math.cos(currentAngle * Math.PI/180);
+                                camera.position.x = 1000 * Math.sin(currentAngle * Math.PI/180);
+                                camera.lookAt(scene.position);
+                            } else if(mode == "blockx"){
+                                clickedElement.position.x += 10
+                            } else if(mode == "blockz"){
+                                clickedElement.position.z += 10
+                            }
+                            break;
+                        case 40:
+                            // Strzałka w dół
+                                if(mode == "camera"){
+                                    camera.position.y -= 10
+                                    camera.lookAt(scene.position);
+                                } else{
+                                    clickedElement.position.y -= 10
+                                }             
+                            break;
+                        case 88:
+                            // Klawisz X
+                            changeModeInfo("blockx")
+                            break;
+                        case 90:
+                            // Klawisz Z
+                            changeModeInfo("blockz");
+                            break;
+                    }
+                }
+
+                //ciągłe renderowanie / wyświetlanie widoku sceny naszą kamerą
+
+                renderer.render(scene, camera);
+            }
+
+            // na koniec jednokrotne wykonanie powyższej funkcji
+
+            render();
+        })
+    </script>
+</body>
+
+</html>

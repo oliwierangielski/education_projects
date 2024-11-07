@@ -1,0 +1,59 @@
+html, body {
+    font-family: 'Roboto', sans-serif;
+    min-height: 100% !important;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+h1{
+    color: white;
+    padding: 5px;
+}
+
+.gamePanel{
+    background-color: rgb(12, 12, 138);
+    position: relative;
+    width: 80%;
+    height: 100%;
+    float: left;
+}
+
+.controlPanel{
+    width: 20%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    background-color:azure;
+}
+
+.planet{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: url("planet.png");
+    background-position: center;
+    background-size: 200px 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: aliceblue;
+}
+
+.button{
+    width: 90%;
+    height: 50px;
+    margin-top: 5px;
+    background-color: lightgray;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.rocket{
+    position: absolute;
+    width: 160px;
+    height: 151px;
+}
+

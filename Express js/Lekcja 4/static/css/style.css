@@ -1,0 +1,58 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+h2{
+    color: blue;
+    text-decoration: underline;
+}
+
+.zadanie{
+    color: red;
+}
+
+.container{
+    padding: 20px;
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+input[type=submit]{
+    width: 200px;
+    font-size: 20px;
+    margin: 6px;
+}
+
+input[type=file]{
+    width: 500px;
+    color: white;
+    background-color: blue;
+    padding: 7px;
+    font-size: 21px;
+    border: 1px solid #000;
+}
+
+button {
+    color: white;
+    background-color: blue;
+    padding: 10px;
+    font-size: 21px;
+    border: 1px solid #000;
+}
+
+
+.square{
+    width: 60px;
+    height: 60px;
+    background-color: black;
+    margin-right: 2px;
+    margin-left: 2px;
+    display: inline-block;
+}
+
+#jsonInfo{
+    color: black;
+    font-size: 21px;
+    margin-top: 15px;
+    font-weight: 700;
+}
