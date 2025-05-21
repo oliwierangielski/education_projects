@@ -1,5 +1,5 @@
 # ZSŁ
-This module contains all projects I made when I was attending technical high school Zespół Szkół Łączności.
+This module contains all projects I made while attending the technical high school *Zespół Szkół Łączności*.
 
 ## Structure
 ````
