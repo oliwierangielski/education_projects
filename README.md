@@ -1,2 +1,6 @@
-# ZSŁ
-All projects I made during my education in Upper Secondary School of Communications (ZSŁ)
+# Education_Projects
+This repository contains all projects I made during my educational journey in different schools.
+
+## Structure
+📦 education_projects
+└── 📁 [ZSL](ZSL/README.md)
