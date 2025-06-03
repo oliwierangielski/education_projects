@@ -1,0 +1,1 @@
+<h1 style="color: red">BLAD - Brak uzytkownika, lub uzytkownik juz istnieje</h1>

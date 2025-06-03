@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz</title>
+</head>
+<body>
+    <!-- Formularz z get (domyślne) - jawna
+        <form method="GET">
+            <input type="text" name="text1"> <br> <br>
+            <input type="text" name="text2"> <br> <br>
+            <input type="submit" value="Wyślij">
+        </form>
+    -->
+    <!-- Metoda POST - ukryta
+        <form method="POST">
+            <input type="text" name="text1"> <br> <br>
+            <input type="text" name="text2"> <br> <br>
+            <input type="submit" value="Wyślij">
+        </form> 
+    -->
+    <!-- Form z przesłaniem do skryptu php-->
+    <form method="GET" action="formularze.php">
+        <input type="text" name="text1" placeholder="text1"> <br> <br>
+        <input type="text" name="text2" placeholder="text2"> <br> <br>
+        <input type="submit" value="Wyślij">
+    </form>
+</body>
+</html>

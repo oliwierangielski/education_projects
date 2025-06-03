@@ -1,0 +1,14 @@
+td{
+    border: 1px solid black;
+}
+th{
+    border: 1px solid orange;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+.rating{
+    margin-top: 100px;
+}

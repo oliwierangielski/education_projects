@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*{
+    box-sizing: border-box!important;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: black;
+    margin: 0;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 120px;
+    border-bottom: 3px solid rgb(245, 130, 30);
+    color: white;
+}
+
+.logo{
+    font-family: 'Tilt Warp', cursive;
+    color: rgb(245, 130, 30);
+    font-size: 35px;
+    padding: 50px;
+    text-align: right;
+    line-height: 0.8;
+}
+
+.logoLink{
+    text-decoration: none;
+}
+
+.accBtnHolder{
+    display: flex;
+    flex-direction: row;
+}
+
+.accBtn{
+    font-size: 20px;
+    margin: 15px;
+    cursor: pointer;
+    transition: color 150ms ease-in-out;
+}
+
+.accBtn:hover{
+    color: rgb(245, 130, 30);
+}
+
+/* main{
+   
+} */
+
+.slider{
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    /* width: 100%; */
+}
+
+.sliderInner{
+    display: flex;
+    flex-direction: row;
+}
+
+.sliderImg{
+    /* float: left; */
+    padding: 10px;
+}
+
+.arrowSlider{
+    position: absolute;
+    top:50%;
+    font-size: 30px;
+    color: white;
+    background-color: rgba(31, 30, 30, 0.921);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#leftArrowSlider{
+    left: 0;
+}
+
+#rightArrowSlider{
+    right: 0;
+}
+
+.dialog{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    border: none;
+    z-index: 10;
+}
+
+.rightDialog{
+    width: 500px;
+    height: 500px;
+    background-color: black;
+    border: 2px solid rgb(245, 130, 30);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.reservationRightDialog{
+    width: 1000px;
+    height: 700px;
+    background-color: black;
+    border: 2px solid rgb(245, 130, 30);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+}
+
+.dialogExitBtn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.dialogExitBtn:hover{
+    color: rgb(245, 130, 30);
+}
+
+.dialogTitle{
+    text-align: center;
+    font-size: 35px;
+    padding: 45px;
+}
+
+.dialogInputContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.dialogInput{
+    width: 270px;
+    font-size: 23px;
+    padding: 10px;
+    margin: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-left: 2px solid rgb(245, 130, 30);
+    border-bottom: 2px solid #333130;
+}
+
+.dialogSubmitBtn{
+    margin: 10px;
+    width: 270px;
+    background-color: rgb(245, 130, 30);
+    color: white;
+    font-size: 20px;
+    height: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 0px;
+}
+
+.dialogSubmitBtn:hover{
+    opacity: 0.7;
+}
+
+.dialogAdviceHelper{
+    text-align: center;
+    padding: 5px;
+}
+
+.filmInfoContainer{
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    margin-top: 100px;
+}
+
+/* .filmInformation{
+
+} */
+
+.ticketBtn{
+    width: fit-content;
+    background-color: rgb(245, 130, 30);
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ticketBtn:hover{
+    opacity: 0.7;
+}
+
+.reserveBtn{
+    width: 200px;
+    background-color: rgb(245, 130, 30);
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.showingBtn{
+    width: 400px;
+    background-color: #333130;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.showingBtn:hover{
+    opacity: 0.7;
+}
+
+#choseSeatWindow{
+    display: none;
+}
+
+#seatsChoice{
+    display: flex;
+    justify-content: center;
+}
+
+#showingsChoice{
+    display: flex;
+    flex-direction: column;
+}
